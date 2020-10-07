@@ -1,5 +1,6 @@
 # microservice specific routes
 
-GET        /assets/*file                                                 controllers.Assets.versioned(path = "/public", file: Asset)
+GET        /assets/*file                        controllers.Assets.versioned(path = "/public", file: Asset)
 
-POST       /manage-transit-movements/reference-data-list-ingestion       uk.gov.hmrc.customsreferencedatatestfrontend.controllers.CustomsReferenceDataController.referenceDataListpost()
++ nocsrf
+POST       /reference-data-list-ingestion       uk.gov.hmrc.customsreferencedatatestfrontend.controllers.CustomsReferenceDataController.referenceDataListpost()

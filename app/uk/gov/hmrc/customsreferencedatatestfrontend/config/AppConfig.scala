@@ -21,5 +21,5 @@ import play.api.Configuration
 
 @Singleton
 class AppConfig @Inject()(config: Configuration) {
-  lazy val customsReferenceDataUrl: String = config.get[Service]("microservice.services.testOnly-customs-reference-data").baseUrl
+  lazy val customsReferenceDataUrl: String = config.get[Service]("microservice.services.customs-reference-data").baseUrl
 }
