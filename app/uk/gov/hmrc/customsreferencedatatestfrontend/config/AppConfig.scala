@@ -16,12 +16,10 @@
 
 package uk.gov.hmrc.customsreferencedatatestfrontend.config
 
-import javax.inject.{Inject, Singleton}
+import com.google.inject.{Inject, Singleton}
 import play.api.Configuration
-import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 @Singleton
-class AppConfig @Inject()(config: Configuration, servicesConfig: ServicesConfig) {
-  val footerLinkItems: Seq[String] = config.getOptional[Seq[String]]("footerLinkItems").getOrElse(Seq())
-
+class AppConfig @Inject()(config: Configuration) {
+  lazy val customsReferenceDataUrl: String = config.get[Service]("microservice.services.customs-reference-data").baseUrl
 }

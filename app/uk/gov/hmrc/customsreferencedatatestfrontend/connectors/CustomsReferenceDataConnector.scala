@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.customsreferencedatatestfrontend.controllers
+package uk.gov.hmrc.customsreferencedatatestfrontend.connectors
 
-import javax.inject.{Inject, Singleton}
+import java.io.File
 
-import play.api.mvc._
-import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
+import javax.inject.Inject
+import play.api.libs.ws.{WSClient, WSResponse}
 import uk.gov.hmrc.customsreferencedatatestfrontend.config.AppConfig
-import uk.gov.hmrc.customsreferencedatatestfrontend.views.html.HelloWorldPage
 
 import scala.concurrent.Future
 
-@Singleton
-class HelloWorldController @Inject()(
-  appConfig: AppConfig,
-  mcc: MessagesControllerComponents,
-  helloWorldPage: HelloWorldPage)
-    extends FrontendController(mcc) {
+class CustomsReferenceDataConnector @Inject()(ws: WSClient, config: AppConfig) {
 
-  implicit val config: AppConfig = appConfig
+  def referenceDataListpost(body: File): Future[WSResponse] = {
 
-  val helloWorld: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(helloWorldPage()))
+    val serviceUrl = s"${config.customsReferenceDataUrl}/reference-data-lists"
+
+    val h1 = ("Accept-Encoding", "gzip, deflate, br")
+    val h2 = ("Content-Type", "application/gzip")
+
+    ws.url(serviceUrl)
+      .withHttpHeaders(h1, h2)
+      .post(body)
   }
 
 }
