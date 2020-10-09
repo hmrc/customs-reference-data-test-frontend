@@ -44,7 +44,7 @@ class CustomsReferenceDataConnectorSpec
 
   "CustomsReferenceDataConnector" - {
 
-    "referenceDataListpost" - {
+    "referenceDataListPost" - {
 
       "must return status Accepted" in {
 
@@ -58,7 +58,29 @@ class CustomsReferenceDataConnectorSpec
 
         val tempFile = File.createTempFile("test", ".gz")
 
-        val result: Future[WSResponse] = connector.referenceDataListpost(tempFile)
+        val result: Future[WSResponse] = connector.referenceDataListPost(tempFile)
+
+        result.futureValue.status mustBe 202
+
+        tempFile.deleteOnExit()
+      }
+    }
+
+    "customsOfficeListPost" - {
+
+      "must return status Accepted" in {
+
+        server.stubFor(
+          post(urlEqualTo("/customs-reference-data/customs-office-lists/customs-office-lists"))
+            .willReturn(
+              aResponse()
+                .withStatus(202)
+            )
+        )
+
+        val tempFile = File.createTempFile("test", ".gz")
+
+        val result: Future[WSResponse] = connector.customsOfficeListPost(tempFile)
 
         result.futureValue.status mustBe 202
 
