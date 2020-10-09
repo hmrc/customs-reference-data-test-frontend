@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.customsreferencedatatestfrontend.controllers
+package controllers
 
 import java.io.File
 
+import connectors.CustomsReferenceDataConnector
 import javax.inject.Inject
 import play.api.mvc.{Action, MessagesControllerComponents, Request}
-import uk.gov.hmrc.customsreferencedatatestfrontend.connectors.CustomsReferenceDataConnector
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 
 import scala.concurrent.ExecutionContext

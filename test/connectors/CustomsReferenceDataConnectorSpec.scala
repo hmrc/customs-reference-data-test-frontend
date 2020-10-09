@@ -24,7 +24,6 @@ import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
 import play.api.libs.ws.WSResponse
-import uk.gov.hmrc.customsreferencedatatestfrontend.connectors.CustomsReferenceDataConnector
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future

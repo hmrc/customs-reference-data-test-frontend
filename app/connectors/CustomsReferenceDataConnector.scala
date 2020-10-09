@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.customsreferencedatatestfrontend.connectors
+package connectors
 
 import java.io.File
 
+import config.AppConfig
 import javax.inject.Inject
 import play.api.libs.ws.{WSClient, WSResponse}
-import uk.gov.hmrc.customsreferencedatatestfrontend.config.AppConfig
 
 import scala.concurrent.Future
 
