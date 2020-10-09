@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.customsreferencedatatestfrontend.controllers
+package controllers
 
 import java.io.File
 
+import connectors.CustomsReferenceDataConnector
 import javax.inject.Inject
 import play.api.mvc.{Action, MessagesControllerComponents, Request}
-import uk.gov.hmrc.customsreferencedatatestfrontend.connectors.CustomsReferenceDataConnector
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 
 import scala.concurrent.ExecutionContext
@@ -30,10 +30,10 @@ class CustomsReferenceDataController @Inject()(
                                                 connector: CustomsReferenceDataConnector
                                               )(implicit val ec: ExecutionContext) extends FrontendController(mcc) {
 
-  def referenceDataListpost(): Action[File] =
+  def referenceDataListPost(): Action[File] =
     Action(parse.file(to = new File("/tmp/test.gz"))).async {
       request: Request[File] => {
-        connector.referenceDataListpost(request.body).map {
+        connector.referenceDataListPost(request.body).map {
           result =>
             result.status match {
               case ACCEPTED => Accepted
@@ -42,4 +42,18 @@ class CustomsReferenceDataController @Inject()(
         }
       }
     }
+
+  def customsOfficeListPost(): Action[File] =
+    Action(parse.file(to = new File("/tmp/test.gz"))).async {
+      request: Request[File] => {
+        connector.customsOfficeListPost(request.body).map {
+          result =>
+            result.status match {
+              case ACCEPTED => Accepted
+              case _ => BadRequest(s"Failed: ${result.status} - ${result.body}")
+            }
+        }
+      }
+    }
+
 }

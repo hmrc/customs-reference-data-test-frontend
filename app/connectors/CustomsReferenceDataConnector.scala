@@ -14,24 +14,33 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.customsreferencedatatestfrontend.connectors
+package connectors
 
 import java.io.File
 
+import config.AppConfig
 import javax.inject.Inject
 import play.api.libs.ws.{WSClient, WSResponse}
-import uk.gov.hmrc.customsreferencedatatestfrontend.config.AppConfig
 
 import scala.concurrent.Future
 
 class CustomsReferenceDataConnector @Inject()(ws: WSClient, config: AppConfig) {
 
-  def referenceDataListpost(body: File): Future[WSResponse] = {
+  private val h1 = ("Accept-Encoding", "gzip, deflate, br")
+  private val h2 = ("Content-Type", "application/gzip")
+
+  def referenceDataListPost(body: File): Future[WSResponse] = {
 
     val serviceUrl = s"${config.customsReferenceDataUrl}/reference-data-lists"
 
-    val h1 = ("Accept-Encoding", "gzip, deflate, br")
-    val h2 = ("Content-Type", "application/gzip")
+    ws.url(serviceUrl)
+      .withHttpHeaders(h1, h2)
+      .post(body)
+  }
+
+  def customsOfficeListPost(body: File): Future[WSResponse] = {
+
+    val serviceUrl = s"${config.customsReferenceDataUrl}/customs-office-lists/customs-office-lists"
 
     ws.url(serviceUrl)
       .withHttpHeaders(h1, h2)

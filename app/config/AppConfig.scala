@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.customsreferencedatatestfrontend.config
+package config
 
 import com.google.inject.{Inject, Singleton}
 import play.api.Configuration
