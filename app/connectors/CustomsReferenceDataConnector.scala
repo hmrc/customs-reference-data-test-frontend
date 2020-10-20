@@ -27,7 +27,7 @@ import scala.concurrent.Future
 class CustomsReferenceDataConnector @Inject()(ws: WSClient, config: AppConfig) {
 
   private val h1 = ("Accept-Encoding", "gzip, deflate, br")
-  private val h2 = ("Content-Type", "application/gzip")
+  private val h2 = ("Content-Type", "application/json")
 
   def referenceDataListPost(body: File): Future[WSResponse] = {
 
