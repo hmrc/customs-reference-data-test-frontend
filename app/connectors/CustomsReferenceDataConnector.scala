@@ -40,7 +40,7 @@ class CustomsReferenceDataConnector @Inject()(ws: WSClient, config: AppConfig) {
 
   def customsOfficeListPost(body: File): Future[WSResponse] = {
 
-    val serviceUrl = s"${config.customsReferenceDataUrl}/customs-office-lists/customs-office-lists"
+    val serviceUrl = s"${config.customsReferenceDataUrl}/customs-office-lists"
 
     ws.url(serviceUrl)
       .withHttpHeaders(h1, h2)
