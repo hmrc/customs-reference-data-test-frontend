@@ -71,7 +71,7 @@ class CustomsReferenceDataConnectorSpec
       "must return status Accepted" in {
 
         server.stubFor(
-          post(urlEqualTo("/customs-reference-data/customs-office-lists/customs-office-lists"))
+          post(urlEqualTo("/customs-reference-data/customs-office-lists"))
             .willReturn(
               aResponse()
                 .withStatus(202)
