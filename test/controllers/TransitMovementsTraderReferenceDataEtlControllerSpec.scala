@@ -18,7 +18,7 @@ package controllers
 
 import akka.stream.scaladsl.Source
 import akka.util.ByteString
-import connectors.CustomsReferenceDataConnector
+import connectors.TransitMovementsTraderReferenceDataEtlConnector
 import org.mockito.Mockito.when
 import org.scalatest.OptionValues
 import org.scalatest.freespec.AnyFreeSpec
@@ -38,9 +38,9 @@ import java.net.URI
 import scala.concurrent.Future
 import scala.xml.Elem
 
-class CustomsReferenceDataControllerSpec extends AnyFreeSpec with Matchers with OptionValues with GuiceOneAppPerSuite {
+class TransitMovementsTraderReferenceDataEtlControllerSpec extends AnyFreeSpec with Matchers with OptionValues with GuiceOneAppPerSuite {
 
-  private val mockConnector: CustomsReferenceDataConnector = mock[CustomsReferenceDataConnector]
+  private val mockConnector: TransitMovementsTraderReferenceDataEtlConnector = mock[TransitMovementsTraderReferenceDataEtlConnector]
 
   private class DummyWSResponse(statusCode: Int) extends WSResponse {
     override def status: Int = statusCode
@@ -59,10 +59,10 @@ class CustomsReferenceDataControllerSpec extends AnyFreeSpec with Matchers with 
   }
 
   override lazy val app: Application = new GuiceApplicationBuilder()
-    .overrides(bind[CustomsReferenceDataConnector].toInstance(mockConnector))
+    .overrides(bind[TransitMovementsTraderReferenceDataEtlConnector].toInstance(mockConnector))
     .build()
 
-  "CustomsReferenceDataController" - {
+  "TransitMovementsTraderReferenceDataEtlController" - {
 
     "referenceDataImport" - {
       "when OK response" - {
@@ -70,7 +70,7 @@ class CustomsReferenceDataControllerSpec extends AnyFreeSpec with Matchers with 
           when(mockConnector.referenceDataImport()).thenReturn(Future.successful(new DummyWSResponse(OK)))
 
           val request =
-            FakeRequest(PUT, controllers.routes.CustomsReferenceDataController.referenceDataImport().url)
+            FakeRequest(PUT, controllers.routes.TransitMovementsTraderReferenceDataEtlController.referenceDataImport().url)
               .withJsonBody(
                 Json.obj()
               )
@@ -86,7 +86,7 @@ class CustomsReferenceDataControllerSpec extends AnyFreeSpec with Matchers with 
           when(mockConnector.referenceDataImport()).thenReturn(Future.successful(new DummyWSResponse(INTERNAL_SERVER_ERROR)))
 
           val request =
-            FakeRequest(PUT, controllers.routes.CustomsReferenceDataController.referenceDataImport().url)
+            FakeRequest(PUT, controllers.routes.TransitMovementsTraderReferenceDataEtlController.referenceDataImport().url)
               .withJsonBody(
                 Json.obj()
               )

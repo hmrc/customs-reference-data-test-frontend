@@ -17,33 +17,20 @@
 package connectors
 
 import config.AppConfig
+import play.api.libs.json.Json
 import play.api.libs.ws.{WSClient, WSResponse}
 
-import java.io.File
 import javax.inject.Inject
 import scala.concurrent.Future
 
-class CustomsReferenceDataConnector @Inject()(ws: WSClient, config: AppConfig) {
+class TransitMovementsTraderReferenceDataEtlConnector @Inject()(ws: WSClient, config: AppConfig) {
 
-  private val h1 = ("Accept-Encoding", "gzip, deflate, br")
-  private val h2 = ("Content-Type", "application/json")
-
-  def referenceDataListPost(body: File): Future[WSResponse] = {
-
-    val serviceUrl = s"${config.customsReferenceDataUrl}/reference-data-lists"
+  def referenceDataImport(): Future[WSResponse] = {
+    val serviceUrl = s"${config.transitMovementsTraderReferenceDataEtlUrl}/schedule-action/reference-data"
 
     ws.url(serviceUrl)
-      .withHttpHeaders(h1, h2)
-      .post(body)
-  }
-
-  def customsOfficeListPost(body: File): Future[WSResponse] = {
-
-    val serviceUrl = s"${config.customsReferenceDataUrl}/customs-office-lists"
-
-    ws.url(serviceUrl)
-      .withHttpHeaders(h1, h2)
-      .post(body)
+      .withHttpHeaders(("Content-Type", "application/json"))
+      .post(Json.obj())
   }
 
 }

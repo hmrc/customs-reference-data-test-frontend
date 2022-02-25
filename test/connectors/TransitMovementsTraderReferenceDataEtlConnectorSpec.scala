@@ -16,8 +16,6 @@
 
 package connectors
 
-import java.io.File
-
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, post, urlEqualTo}
 import org.scalatest.OptionValues
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
@@ -28,7 +26,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-class CustomsReferenceDataConnectorSpec
+class TransitMovementsTraderReferenceDataEtlConnectorSpec
   extends AnyFreeSpec
     with Matchers
     with ScalaFutures
@@ -36,53 +34,28 @@ class CustomsReferenceDataConnectorSpec
     with OptionValues
     with WiremockSuite {
 
-  override protected def portConfigKey: String = "microservice.services.customs-reference-data.port"
+  override protected def portConfigKey: String = "microservice.services.transit-movements-trader-reference-data-etl.port"
 
-  lazy val connector: CustomsReferenceDataConnector = app.injector.instanceOf[CustomsReferenceDataConnector]
+  lazy val connector: TransitMovementsTraderReferenceDataEtlConnector = app.injector.instanceOf[TransitMovementsTraderReferenceDataEtlConnector]
 
   implicit val headerCarrier: HeaderCarrier = HeaderCarrier()
 
-  "CustomsReferenceDataConnector" - {
+  "TransitMovementsTraderReferenceDataEtlConnector" - {
 
-    "referenceDataListPost" - {
-      "must return status Accepted" in {
+    "referenceDataImport" - {
+      "must return status Ok" in {
 
         server.stubFor(
-          post(urlEqualTo("/customs-reference-data/reference-data-lists"))
+          post(urlEqualTo("/transit-movements-trader-reference-data-etl/schedule-action/reference-data"))
             .willReturn(
               aResponse()
-                .withStatus(202)
+                .withStatus(200)
             )
         )
 
-        val tempFile = File.createTempFile("test", ".gz")
+        val result: Future[WSResponse] = connector.referenceDataImport()
 
-        val result: Future[WSResponse] = connector.referenceDataListPost(tempFile)
-
-        result.futureValue.status mustBe 202
-
-        tempFile.deleteOnExit()
-      }
-    }
-
-    "customsOfficeListPost" - {
-      "must return status Accepted" in {
-
-        server.stubFor(
-          post(urlEqualTo("/customs-reference-data/customs-office-lists"))
-            .willReturn(
-              aResponse()
-                .withStatus(202)
-            )
-        )
-
-        val tempFile = File.createTempFile("test", ".gz")
-
-        val result: Future[WSResponse] = connector.customsOfficeListPost(tempFile)
-
-        result.futureValue.status mustBe 202
-
-        tempFile.deleteOnExit()
+        result.futureValue.status mustBe 200
       }
     }
   }

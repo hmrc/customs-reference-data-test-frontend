@@ -17,7 +17,7 @@
 package controllers
 
 import connectors.CustomsReferenceDataConnector
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
+import play.api.mvc.{Action, MessagesControllerComponents, Request}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 
 import java.io.File
@@ -53,17 +53,6 @@ class CustomsReferenceDataController @Inject()(
             }
         }
       }
-    }
-
-  def referenceDataImport(): Action[AnyContent] =
-    Action.async {
-      _: Request[AnyContent] =>
-        connector.referenceDataImport().map {
-          _.status match {
-              case OK => Ok
-              case _ => InternalServerError
-            }
-        }
     }
 
 }
