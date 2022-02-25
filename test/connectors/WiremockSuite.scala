@@ -27,8 +27,6 @@ trait WiremockSuite extends BeforeAndAfterAll with BeforeAndAfterEach {
 
   protected val server: WireMockServer = new WireMockServer(wireMockConfig().dynamicPort())
 
-  protected def portConfigKey: String = "microservice.services.customs-reference-data.port"
-
   protected lazy val app: Application =
     new GuiceApplicationBuilder()
       .configure(
