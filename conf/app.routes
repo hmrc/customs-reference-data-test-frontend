@@ -7,3 +7,6 @@ POST       /reference-data-list-ingestion       controllers.CustomsReferenceData
 
 + nocsrf
 POST       /customs-office-list-ingestion       controllers.CustomsReferenceDataController.customsOfficeListPost()
+
++ nocsrf
+PUT        /schedule-action/reference-data      controllers.TransitMovementsTraderReferenceDataEtlController.referenceDataImport()

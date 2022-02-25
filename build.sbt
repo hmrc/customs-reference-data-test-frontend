@@ -37,8 +37,14 @@ lazy val microservice = Project(appName, file("."))
     // ***************
   )
   .settings(publishingSettings: _*)
+  .settings(inConfig(Test)(testSettings): _*)
   .configs(IntegrationTest)
   .settings(integrationTestSettings(): _*)
   .settings(resolvers += Resolver.jcenterRepo)
 
-
+lazy val testSettings: Seq[Def.Setting[_]] = Seq(
+  unmanagedResourceDirectories += baseDirectory.value / "test" / "resources",
+  javaOptions ++= Seq(
+    "-Dconfig.resource=test.application.conf"
+  )
+)

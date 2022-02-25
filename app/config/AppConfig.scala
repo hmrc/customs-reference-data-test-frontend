@@ -18,8 +18,19 @@ package config
 
 import com.google.inject.{Inject, Singleton}
 import play.api.Configuration
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 @Singleton
-class AppConfig @Inject()(config: Configuration) {
-  lazy val customsReferenceDataUrl: String = config.get[Service]("microservice.services.customs-reference-data").baseUrl
+class AppConfig @Inject()(config: Configuration, servicesConfig: ServicesConfig) {
+  lazy val customsReferenceDataUrl: String = {
+    val baseUrl = servicesConfig.baseUrl("customs-reference-data")
+    val startUrl = config.get[String]("microservice.services.customs-reference-data.startUrl")
+    s"$baseUrl/$startUrl"
+  }
+
+  lazy val transitMovementsTraderReferenceDataEtlUrl: String = {
+    val baseUrl = servicesConfig.baseUrl("transit-movements-trader-reference-data-etl")
+    val startUrl = config.get[String]("microservice.services.transit-movements-trader-reference-data-etl.startUrl")
+    s"$baseUrl/$startUrl"
+  }
 }

@@ -16,13 +16,12 @@
 
 package controllers
 
-import java.io.File
-
 import connectors.CustomsReferenceDataConnector
-import javax.inject.Inject
 import play.api.mvc.{Action, MessagesControllerComponents, Request}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 
+import java.io.File
+import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 
 class CustomsReferenceDataController @Inject()(
