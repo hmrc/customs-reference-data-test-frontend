@@ -36,8 +36,6 @@ class CustomsReferenceDataConnectorSpec
     with OptionValues
     with WiremockSuite {
 
-  override protected def portConfigKey: String = "microservice.services.customs-reference-data.port"
-
   lazy val connector: CustomsReferenceDataConnector = app.injector.instanceOf[CustomsReferenceDataConnector]
 
   implicit val headerCarrier: HeaderCarrier = HeaderCarrier()
@@ -45,7 +43,6 @@ class CustomsReferenceDataConnectorSpec
   "CustomsReferenceDataConnector" - {
 
     "referenceDataListPost" - {
-
       "must return status Accepted" in {
 
         server.stubFor(
@@ -67,7 +64,6 @@ class CustomsReferenceDataConnectorSpec
     }
 
     "customsOfficeListPost" - {
-
       "must return status Accepted" in {
 
         server.stubFor(
@@ -85,6 +81,23 @@ class CustomsReferenceDataConnectorSpec
         result.futureValue.status mustBe 202
 
         tempFile.deleteOnExit()
+      }
+    }
+
+    "referenceDataImport" - {
+      "must return status Ok" in {
+
+        server.stubFor(
+          post(urlEqualTo("/transit-movements-trader-reference-data-etl/schedule-action/reference-data"))
+            .willReturn(
+              aResponse()
+                .withStatus(200)
+            )
+        )
+
+        val result: Future[WSResponse] = connector.referenceDataImport()
+
+        result.futureValue.status mustBe 200
       }
     }
   }

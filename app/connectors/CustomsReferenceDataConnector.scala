@@ -16,12 +16,12 @@
 
 package connectors
 
-import java.io.File
-
 import config.AppConfig
-import javax.inject.Inject
+import play.api.libs.json.Json
 import play.api.libs.ws.{WSClient, WSResponse}
 
+import java.io.File
+import javax.inject.Inject
 import scala.concurrent.Future
 
 class CustomsReferenceDataConnector @Inject()(ws: WSClient, config: AppConfig) {
@@ -45,6 +45,15 @@ class CustomsReferenceDataConnector @Inject()(ws: WSClient, config: AppConfig) {
     ws.url(serviceUrl)
       .withHttpHeaders(h1, h2)
       .post(body)
+  }
+
+  def referenceDataImport(): Future[WSResponse] = {
+
+    val serviceUrl = s"${config.transitMovementsTraderReferenceDataEtlUrl}/schedule-action/reference-data"
+
+    ws.url(serviceUrl)
+      .withHttpHeaders(h2)
+      .post(Json.obj())
   }
 
 }
