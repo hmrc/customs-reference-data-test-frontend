@@ -59,10 +59,13 @@ class CustomsReferenceDataController @Inject()(
   def referenceDataListGet(listName: ListName): Action[AnyContent] =
     Action.async {
       _ =>
-        connector.referenceDataListGet(listName).map(_.status).map {
-          case OK        => Ok
-          case NOT_FOUND => NotFound(s"$listName not found")
-          case _         => InternalServerError
+        connector.referenceDataListGet(listName).map {
+          result =>
+            result.status match {
+              case OK        => Ok(result.json)
+              case NOT_FOUND => NotFound(s"$listName not found")
+              case _         => InternalServerError
+            }
         }
     }
 
