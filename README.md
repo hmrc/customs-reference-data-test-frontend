@@ -1,7 +1,7 @@
 
 # customs-reference-data-test-frontend
 
-This is a placeholder README.md for a new repository
+This is a service for proxying requests to the protected customs-reference-data service.
 
 ### License
 
