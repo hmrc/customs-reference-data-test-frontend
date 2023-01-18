@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,7 @@
 
 package connectors
 
-import java.io.File
-
-import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, post, urlEqualTo}
+import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, urlEqualTo}
 import org.scalatest.OptionValues
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatest.freespec.AnyFreeSpec
@@ -26,6 +24,7 @@ import org.scalatest.matchers.must.Matchers
 import play.api.libs.ws.WSResponse
 import uk.gov.hmrc.http.HeaderCarrier
 
+import java.io.File
 import scala.concurrent.Future
 
 class CustomsReferenceDataConnectorSpec
@@ -83,6 +82,25 @@ class CustomsReferenceDataConnectorSpec
         result.futureValue.status mustBe 202
 
         tempFile.deleteOnExit()
+      }
+    }
+
+    "referenceDataListGet" - {
+      "must return status Accepted" in {
+
+        val listName = "list-name"
+
+        server.stubFor(
+          get(urlEqualTo(s"/customs-reference-data/lists/$listName"))
+            .willReturn(
+              aResponse()
+                .withStatus(200)
+            )
+        )
+
+        val result: Future[WSResponse] = connector.referenceDataListGet(listName)
+
+        result.futureValue.status mustBe 200
       }
     }
   }

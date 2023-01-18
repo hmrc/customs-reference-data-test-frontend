@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,21 +29,27 @@ class CustomsReferenceDataConnector @Inject()(ws: WSClient, config: AppConfig) {
   private val h2 = ("Content-Type", "application/json")
 
   def referenceDataListPost(body: File): Future[WSResponse] = {
+    val url = s"${config.customsReferenceDataUrl}/reference-data-lists"
 
-    val serviceUrl = s"${config.customsReferenceDataUrl}/reference-data-lists"
-
-    ws.url(serviceUrl)
+    ws.url(url)
       .withHttpHeaders(h1, h2)
       .post(body)
   }
 
   def customsOfficeListPost(body: File): Future[WSResponse] = {
+    val url = s"${config.customsReferenceDataUrl}/customs-office-lists"
 
-    val serviceUrl = s"${config.customsReferenceDataUrl}/customs-office-lists"
-
-    ws.url(serviceUrl)
+    ws.url(url)
       .withHttpHeaders(h1, h2)
       .post(body)
+  }
+
+  def referenceDataListGet(listName: String): Future[WSResponse] = {
+    val url = s"${config.customsReferenceDataUrl}/lists/$listName"
+
+    ws.url(url)
+      .withHttpHeaders(h1, h2)
+      .get()
   }
 
 }

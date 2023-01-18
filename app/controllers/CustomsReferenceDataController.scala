@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 package controllers
 
 import connectors.CustomsReferenceDataConnector
-import play.api.mvc.{Action, MessagesControllerComponents, Request}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 
 import java.io.File
@@ -49,10 +49,23 @@ class CustomsReferenceDataController @Inject()(
           result =>
             result.status match {
               case ACCEPTED => Accepted
-              case _ => BadRequest(s"Failed: ${result.status} - ${result.body}")
+              case _        => BadRequest(s"Failed: ${result.status} - ${result.body}")
             }
         }
       }
+    }
+
+  def referenceDataListGet(listName: String): Action[AnyContent] =
+    Action.async {
+      _ =>
+        connector.referenceDataListGet(listName).map {
+          result =>
+            result.status match {
+              case OK        => Ok(result.json)
+              case NOT_FOUND => NotFound(s"$listName not found")
+              case _         => InternalServerError
+            }
+        }
     }
 
 }
