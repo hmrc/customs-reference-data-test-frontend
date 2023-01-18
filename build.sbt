@@ -1,4 +1,3 @@
-import play.sbt.routes.RoutesKeys
 import uk.gov.hmrc.DefaultBuildSettings.integrationTestSettings
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin.publishingSettings
 
@@ -23,7 +22,6 @@ lazy val microservice = Project(appName, file("."))
   .configs(IntegrationTest)
   .settings(integrationTestSettings(): _*)
   .settings(resolvers += Resolver.jcenterRepo)
-  .settings(RoutesKeys.routesImport += "models._")
 
 lazy val testSettings: Seq[Def.Setting[_]] = Seq(
   unmanagedResourceDirectories += baseDirectory.value / "test" / "resources",

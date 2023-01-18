@@ -17,7 +17,6 @@
 package controllers
 
 import connectors.CustomsReferenceDataConnector
-import models.ListName
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 
@@ -56,7 +55,7 @@ class CustomsReferenceDataController @Inject()(
       }
     }
 
-  def referenceDataListGet(listName: ListName): Action[AnyContent] =
+  def referenceDataListGet(listName: String): Action[AnyContent] =
     Action.async {
       _ =>
         connector.referenceDataListGet(listName).map {

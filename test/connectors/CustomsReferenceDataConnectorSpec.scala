@@ -17,7 +17,6 @@
 package connectors
 
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, urlEqualTo}
-import models.ListName
 import org.scalatest.OptionValues
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatest.freespec.AnyFreeSpec
@@ -89,10 +88,10 @@ class CustomsReferenceDataConnectorSpec
     "referenceDataListGet" - {
       "must return status Accepted" in {
 
-        val listName = ListName("list-name")
+        val listName = "list-name"
 
         server.stubFor(
-          get(urlEqualTo(s"/customs-reference-data/lists/${listName.listName}"))
+          get(urlEqualTo(s"/customs-reference-data/lists/$listName"))
             .willReturn(
               aResponse()
                 .withStatus(200)

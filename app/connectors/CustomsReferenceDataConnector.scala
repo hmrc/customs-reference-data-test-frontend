@@ -17,7 +17,6 @@
 package connectors
 
 import config.AppConfig
-import models.ListName
 import play.api.libs.ws.{WSClient, WSResponse}
 
 import java.io.File
@@ -45,7 +44,7 @@ class CustomsReferenceDataConnector @Inject()(ws: WSClient, config: AppConfig) {
       .post(body)
   }
 
-  def referenceDataListGet(listName: ListName): Future[WSResponse] = {
+  def referenceDataListGet(listName: String): Future[WSResponse] = {
     val url = s"${config.customsReferenceDataUrl}/lists/$listName"
 
     ws.url(url)
