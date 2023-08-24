@@ -18,21 +18,26 @@ package connectors
 
 import config.AppConfig
 import play.api.libs.ws.{WSClient, WSResponse}
+import play.api.mvc.RequestHeader
+import uk.gov.hmrc.http.HeaderCarrier
 
 import java.io.File
 import javax.inject.Inject
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class CustomsReferenceDataConnector @Inject()(ws: WSClient, config: AppConfig) {
 
+
   private val h1 = ("Accept-Encoding", "gzip, deflate, br")
   private val h2 = ("Content-Type", "application/json")
+  private val h3 = ("Accept", config.acceptHeader)
+
 
   def referenceDataListPost(body: File): Future[WSResponse] = {
     val url = s"${config.customsReferenceDataUrl}/reference-data-lists"
 
     ws.url(url)
-      .withHttpHeaders(h1, h2)
+      .withHttpHeaders(h1, h2, h3)
       .post(body)
   }
 
@@ -40,7 +45,7 @@ class CustomsReferenceDataConnector @Inject()(ws: WSClient, config: AppConfig) {
     val url = s"${config.customsReferenceDataUrl}/customs-office-lists"
 
     ws.url(url)
-      .withHttpHeaders(h1, h2)
+      .withHttpHeaders(h1, h2, h3)
       .post(body)
   }
 
@@ -48,7 +53,7 @@ class CustomsReferenceDataConnector @Inject()(ws: WSClient, config: AppConfig) {
     val url = s"${config.customsReferenceDataUrl}/lists/$listName"
 
     ws.url(url)
-      .withHttpHeaders(h1, h2)
+      .withHttpHeaders(h1, h2, h3)
       .get()
   }
 
