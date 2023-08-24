@@ -25,14 +25,18 @@ import scala.concurrent.Future
 
 class CustomsReferenceDataConnector @Inject()(ws: WSClient, config: AppConfig) {
 
-  private val h1 = ("Accept-Encoding", "gzip, deflate, br")
-  private val h2 = ("Content-Type", "application/json")
+  private val headers = Seq(
+    "Accept-Encoding" -> "gzip, deflate, br",
+    "Content-Type" -> "application/json",
+    "Accept" -> config.acceptHeader
+  )
+
 
   def referenceDataListPost(body: File): Future[WSResponse] = {
     val url = s"${config.customsReferenceDataUrl}/reference-data-lists"
 
     ws.url(url)
-      .withHttpHeaders(h1, h2)
+      .withHttpHeaders(headers: _*)
       .post(body)
   }
 
@@ -40,7 +44,7 @@ class CustomsReferenceDataConnector @Inject()(ws: WSClient, config: AppConfig) {
     val url = s"${config.customsReferenceDataUrl}/customs-office-lists"
 
     ws.url(url)
-      .withHttpHeaders(h1, h2)
+      .withHttpHeaders(headers: _*)
       .post(body)
   }
 
@@ -48,7 +52,7 @@ class CustomsReferenceDataConnector @Inject()(ws: WSClient, config: AppConfig) {
     val url = s"${config.customsReferenceDataUrl}/lists/$listName"
 
     ws.url(url)
-      .withHttpHeaders(h1, h2)
+      .withHttpHeaders(headers: _*)
       .get()
   }
 
