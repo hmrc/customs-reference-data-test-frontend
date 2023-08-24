@@ -18,12 +18,10 @@ package connectors
 
 import config.AppConfig
 import play.api.libs.ws.{WSClient, WSResponse}
-import play.api.mvc.RequestHeader
-import uk.gov.hmrc.http.HeaderCarrier
 
 import java.io.File
 import javax.inject.Inject
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class CustomsReferenceDataConnector @Inject()(ws: WSClient, config: AppConfig) {
 
