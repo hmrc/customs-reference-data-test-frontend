@@ -17,8 +17,10 @@
 package controllers
 
 import connectors.CustomsReferenceDataConnector
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
+import uk.gov.hmrc.play.http.HeaderCarrierConverter
 
 import java.io.File
 import javax.inject.Inject
@@ -31,7 +33,8 @@ class CustomsReferenceDataController @Inject()(
 
   def referenceDataListPost(): Action[File] =
     Action(parse.file(to = new File("/tmp/test.gz"))).async {
-      request: Request[File] => {
+      request => {
+        implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequest(request)
         connector.referenceDataListPost(request.body).map {
           result =>
             result.status match {
@@ -44,7 +47,8 @@ class CustomsReferenceDataController @Inject()(
 
   def customsOfficeListPost(): Action[File] =
     Action(parse.file(to = new File("/tmp/test.gz"))).async {
-      request: Request[File] => {
+      request => {
+        implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequest(request)
         connector.customsOfficeListPost(request.body).map {
           result =>
             result.status match {
@@ -57,7 +61,8 @@ class CustomsReferenceDataController @Inject()(
 
   def referenceDataListGet(listName: String): Action[AnyContent] =
     Action.async {
-      _ =>
+      request =>
+        implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequest(request)
         connector.referenceDataListGet(listName).map {
           result =>
             result.status match {

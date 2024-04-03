@@ -17,13 +17,15 @@
 package connectors
 
 import config.AppConfig
-import play.api.libs.ws.{WSClient, WSResponse}
+import uk.gov.hmrc.http.HttpReads.Implicits._
+import uk.gov.hmrc.http.client.HttpClientV2
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps}
 
 import java.io.File
 import javax.inject.Inject
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class CustomsReferenceDataConnector @Inject()(ws: WSClient, config: AppConfig) {
+class CustomsReferenceDataConnector @Inject()(http: HttpClientV2, config: AppConfig) {
 
   private val headers = Seq(
     "Accept-Encoding" -> "gzip, deflate, br",
@@ -32,28 +34,30 @@ class CustomsReferenceDataConnector @Inject()(ws: WSClient, config: AppConfig) {
   )
 
 
-  def referenceDataListPost(body: File): Future[WSResponse] = {
-    val url = s"${config.customsReferenceDataUrl}/reference-data-lists"
-
-    ws.url(url)
-      .withHttpHeaders(headers: _*)
-      .post(body)
+  def referenceDataListPost(body: File)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
+    val url = url"${config.customsReferenceDataUrl}/reference-data-lists"
+    http
+      .post(url)
+      .setHeader(headers: _*)
+      .withBody(body)
+      .execute[HttpResponse]
   }
 
-  def customsOfficeListPost(body: File): Future[WSResponse] = {
-    val url = s"${config.customsReferenceDataUrl}/customs-office-lists"
-
-    ws.url(url)
-      .withHttpHeaders(headers: _*)
-      .post(body)
+  def customsOfficeListPost(body: File)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
+    val url = url"${config.customsReferenceDataUrl}/customs-office-lists"
+    http
+      .post(url)
+      .setHeader(headers: _*)
+      .withBody(body)
+      .execute[HttpResponse]
   }
 
-  def referenceDataListGet(listName: String): Future[WSResponse] = {
-    val url = s"${config.customsReferenceDataUrl}/lists/$listName"
-
-    ws.url(url)
-      .withHttpHeaders(headers: _*)
-      .get()
+  def referenceDataListGet(listName: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
+    val url = url"${config.customsReferenceDataUrl}/lists/$listName"
+    http
+      .get(url)
+      .setHeader(headers: _*)
+      .execute[HttpResponse]
   }
 
 }
