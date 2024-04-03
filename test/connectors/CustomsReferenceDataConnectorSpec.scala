@@ -21,10 +21,10 @@ import org.scalatest.OptionValues
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
-import play.api.libs.ws.WSResponse
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 
 import java.io.File
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class CustomsReferenceDataConnectorSpec
@@ -56,7 +56,7 @@ class CustomsReferenceDataConnectorSpec
 
         val tempFile = File.createTempFile("test", ".gz")
 
-        val result: Future[WSResponse] = connector.referenceDataListPost(tempFile)
+        val result: Future[HttpResponse] = connector.referenceDataListPost(tempFile)
 
         result.futureValue.status mustBe 202
 
@@ -77,7 +77,7 @@ class CustomsReferenceDataConnectorSpec
 
         val tempFile = File.createTempFile("test", ".gz")
 
-        val result: Future[WSResponse] = connector.customsOfficeListPost(tempFile)
+        val result: Future[HttpResponse] = connector.customsOfficeListPost(tempFile)
 
         result.futureValue.status mustBe 202
 
@@ -98,7 +98,7 @@ class CustomsReferenceDataConnectorSpec
             )
         )
 
-        val result: Future[WSResponse] = connector.referenceDataListGet(listName)
+        val result: Future[HttpResponse] = connector.referenceDataListGet(listName)
 
         result.futureValue.status mustBe 200
       }

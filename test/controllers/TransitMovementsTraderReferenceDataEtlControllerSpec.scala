@@ -16,15 +16,12 @@
 
 package controllers
 
+import base.SpecBase
+import connectors.TransitMovementsTraderReferenceDataEtlConnector
 import org.apache.pekko.stream.scaladsl.Source
 import org.apache.pekko.util.ByteString
-import connectors.TransitMovementsTraderReferenceDataEtlConnector
 import org.mockito.Mockito.when
-import org.scalatest.OptionValues
-import org.scalatest.freespec.AnyFreeSpec
-import org.scalatest.matchers.must.Matchers
 import org.scalatestplus.mockito.MockitoSugar.mock
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
 import play.api.http.Status.OK
 import play.api.inject.bind
@@ -38,7 +35,7 @@ import java.net.URI
 import scala.concurrent.Future
 import scala.xml.Elem
 
-class TransitMovementsTraderReferenceDataEtlControllerSpec extends AnyFreeSpec with Matchers with OptionValues with GuiceOneAppPerSuite {
+class TransitMovementsTraderReferenceDataEtlControllerSpec extends SpecBase {
 
   private val mockConnector: TransitMovementsTraderReferenceDataEtlConnector = mock[TransitMovementsTraderReferenceDataEtlConnector]
 
