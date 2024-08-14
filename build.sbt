@@ -1,6 +1,3 @@
-import uk.gov.hmrc.DefaultBuildSettings.integrationTestSettings
-import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin.publishingSettings
-
 val appName = "customs-reference-data-test-frontend"
 
 lazy val microservice = Project(appName, file("."))
@@ -18,8 +15,6 @@ lazy val microservice = Project(appName, file("."))
     scalacOptions += "-Wconf:src=routes/.*:s"
   )
   .settings(inConfig(Test)(testSettings): _*)
-  .configs(IntegrationTest)
-  .settings(integrationTestSettings(): _*)
   .settings(resolvers += Resolver.jcenterRepo)
 
 lazy val testSettings: Seq[Def.Setting[_]] = Seq(

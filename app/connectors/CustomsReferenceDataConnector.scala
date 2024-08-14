@@ -33,7 +33,6 @@ class CustomsReferenceDataConnector @Inject()(http: HttpClientV2, config: AppCon
       case BodyType.JSON => url"${config.customsReferenceDataUrl}/reference-data-lists"
       case BodyType.XML => url"${config.customsReferenceDataUrl}/test-only/reference-data-lists"
     }
-    println(url)
     http
       .post(url)
       .setHeader(hc.headers(Seq("Accept", "Accept-Encoding", "Content-Type")): _*)
