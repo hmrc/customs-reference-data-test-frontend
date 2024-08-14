@@ -17,6 +17,7 @@
 package connectors
 
 import config.AppConfig
+import models.BodyType
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.client.HttpClientV2
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps}
@@ -27,27 +28,27 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class CustomsReferenceDataConnector @Inject()(http: HttpClientV2, config: AppConfig) {
 
-  private val headers = Seq(
-    "Accept-Encoding" -> "gzip, deflate, br",
-    "Content-Type" -> "application/json",
-    "Accept" -> config.acceptHeader
-  )
-
-
-  def referenceDataListPost(body: File)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
-    val url = url"${config.customsReferenceDataUrl}/reference-data-lists"
+  def referenceDataListPost(body: File, bodyType: BodyType)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
+    val url = bodyType match {
+      case BodyType.JSON => url"${config.customsReferenceDataUrl}/reference-data-lists"
+      case BodyType.XML => url"${config.customsReferenceDataUrl}/test-only/reference-data-lists"
+    }
+    println(url)
     http
       .post(url)
-      .setHeader(headers: _*)
+      .setHeader(hc.headers(Seq("Accept", "Accept-Encoding", "Content-Type")): _*)
       .withBody(body)
       .execute[HttpResponse]
   }
 
-  def customsOfficeListPost(body: File)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
-    val url = url"${config.customsReferenceDataUrl}/customs-office-lists"
+  def customsOfficeListPost(body: File, bodyType: BodyType)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
+    val url = bodyType match {
+      case BodyType.JSON => url"${config.customsReferenceDataUrl}/customs-office-lists"
+      case BodyType.XML => url"${config.customsReferenceDataUrl}/test-only/customs-office-lists"
+    }
     http
       .post(url)
-      .setHeader(headers: _*)
+      .setHeader(hc.headers(Seq("Accept", "Accept-Encoding", "Content-Type")): _*)
       .withBody(body)
       .execute[HttpResponse]
   }
@@ -56,7 +57,7 @@ class CustomsReferenceDataConnector @Inject()(http: HttpClientV2, config: AppCon
     val url = url"${config.customsReferenceDataUrl}/lists/$listName"
     http
       .get(url)
-      .setHeader(headers: _*)
+      .setHeader(hc.headers(Seq("Accept")): _*)
       .execute[HttpResponse]
   }
 
