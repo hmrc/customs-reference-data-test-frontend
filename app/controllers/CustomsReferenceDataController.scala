@@ -17,6 +17,7 @@
 package controllers
 
 import connectors.CustomsReferenceDataConnector
+import models.BodyType
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
@@ -24,7 +25,7 @@ import uk.gov.hmrc.play.http.HeaderCarrierConverter
 
 import java.io.File
 import javax.inject.Inject
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
 class CustomsReferenceDataController @Inject()(
                                                 mcc: MessagesControllerComponents,
@@ -35,12 +36,17 @@ class CustomsReferenceDataController @Inject()(
     Action(parse.file(to = new File("/tmp/test.gz"))).async {
       request => {
         implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequest(request)
-        connector.referenceDataListPost(request.body).map {
-          result =>
-            result.status match {
-              case ACCEPTED => Accepted
-              case _        => BadRequest(s"Failed: ${result.status} - ${result.body}")
+        BodyType(hc) match {
+          case Some(bodyType) =>
+            connector.referenceDataListPost(request.body, bodyType).map {
+              result =>
+                result.status match {
+                  case ACCEPTED => Accepted
+                  case _ => InternalServerError(s"Failed: ${result.status} - ${result.body}")
+                }
             }
+          case None =>
+            Future.successful(BadRequest("Content-Type header missing"))
         }
       }
     }
@@ -49,12 +55,17 @@ class CustomsReferenceDataController @Inject()(
     Action(parse.file(to = new File("/tmp/test.gz"))).async {
       request => {
         implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequest(request)
-        connector.customsOfficeListPost(request.body).map {
-          result =>
-            result.status match {
-              case ACCEPTED => Accepted
-              case _        => BadRequest(s"Failed: ${result.status} - ${result.body}")
+        BodyType(hc) match {
+          case Some(bodyType) =>
+            connector.customsOfficeListPost(request.body, bodyType).map {
+              result =>
+                result.status match {
+                  case ACCEPTED => Accepted
+                  case _ => InternalServerError(s"Failed: ${result.status} - ${result.body}")
+                }
             }
+          case None =>
+            Future.successful(BadRequest("Content-Type header missing"))
         }
       }
     }

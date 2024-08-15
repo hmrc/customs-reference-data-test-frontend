@@ -20,7 +20,7 @@ import base.SpecBase
 import connectors.CustomsReferenceDataConnector
 import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.{reset, verify, when}
+import org.mockito.Mockito.{reset, verify, verifyNoInteractions, when}
 import org.scalacheck.Gen
 import org.scalatestplus.mockito.MockitoSugar.mock
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
@@ -51,7 +51,50 @@ class CustomsReferenceDataControllerSpec extends SpecBase with ScalaCheckPropert
   "CustomsReferenceDataController" - {
     "referenceDataListPost" - {
       "must return Accepted when post successful" in {
-        when(mockConnector.referenceDataListPost(any())(any(), any()))
+        when(mockConnector.referenceDataListPost(any(), any())(any(), any()))
+          .thenReturn(Future.successful(HttpResponse(ACCEPTED, "")))
+
+        val request = FakeRequest(POST, routes.CustomsReferenceDataController.referenceDataListPost().url)
+          .withHeaders(
+            "Authorization" -> bearerToken,
+            "Content-Type" -> "application/json"
+          )
+
+        val result = route(app, request).value
+
+        status(result) mustEqual ACCEPTED
+
+        val headerCarrierCaptor: ArgumentCaptor[HeaderCarrier] = ArgumentCaptor.forClass(classOf[HeaderCarrier])
+        verify(mockConnector).referenceDataListPost(any(), any())(any(), headerCarrierCaptor.capture())
+        headerCarrierCaptor.getValue.authorization.value.value mustBe bearerToken
+      }
+
+      "must return InternalServerError when post unsuccessful" in {
+        forAll(Gen.choose(400, 599)) {
+          errorCode =>
+            beforeEach()
+
+            when(mockConnector.referenceDataListPost(any(), any())(any(), any()))
+              .thenReturn(Future.successful(HttpResponse(errorCode, "")))
+
+            val request = FakeRequest(POST, routes.CustomsReferenceDataController.referenceDataListPost().url)
+              .withHeaders(
+                "Authorization" -> bearerToken,
+                "Content-Type" -> "application/json"
+              )
+
+            val result = route(app, request).value
+
+            status(result) mustEqual INTERNAL_SERVER_ERROR
+
+            val headerCarrierCaptor: ArgumentCaptor[HeaderCarrier] = ArgumentCaptor.forClass(classOf[HeaderCarrier])
+            verify(mockConnector).referenceDataListPost(any(), any())(any(), headerCarrierCaptor.capture())
+            headerCarrierCaptor.getValue.authorization.value.value mustBe bearerToken
+        }
+      }
+
+      "must return BadRequest when Content-Type missing" in {
+        when(mockConnector.referenceDataListPost(any(), any())(any(), any()))
           .thenReturn(Future.successful(HttpResponse(ACCEPTED, "")))
 
         val request = FakeRequest(POST, routes.CustomsReferenceDataController.referenceDataListPost().url)
@@ -61,40 +104,58 @@ class CustomsReferenceDataControllerSpec extends SpecBase with ScalaCheckPropert
 
         val result = route(app, request).value
 
-        status(result) mustEqual ACCEPTED
+        status(result) mustEqual BAD_REQUEST
 
-        val headerCarrierCaptor: ArgumentCaptor[HeaderCarrier] = ArgumentCaptor.forClass(classOf[HeaderCarrier])
-        verify(mockConnector).referenceDataListPost(any())(any(), headerCarrierCaptor.capture())
-        headerCarrierCaptor.getValue.authorization.value.value mustBe bearerToken
-      }
-
-      "must return BadRequest when post unsuccessful" in {
-        forAll(Gen.choose(400, 599)) {
-          errorCode =>
-            beforeEach()
-
-            when(mockConnector.referenceDataListPost(any())(any(), any()))
-              .thenReturn(Future.successful(HttpResponse(errorCode, "")))
-
-            val request = FakeRequest(POST, routes.CustomsReferenceDataController.referenceDataListPost().url)
-              .withHeaders(
-                "Authorization" -> bearerToken
-              )
-
-            val result = route(app, request).value
-
-            status(result) mustEqual BAD_REQUEST
-
-            val headerCarrierCaptor: ArgumentCaptor[HeaderCarrier] = ArgumentCaptor.forClass(classOf[HeaderCarrier])
-            verify(mockConnector).referenceDataListPost(any())(any(), headerCarrierCaptor.capture())
-            headerCarrierCaptor.getValue.authorization.value.value mustBe bearerToken
-        }
+        verifyNoInteractions(mockConnector)
       }
     }
 
     "customsOfficeListPost" - {
       "must return Accepted when post successful" in {
-        when(mockConnector.customsOfficeListPost(any())(any(), any()))
+        when(mockConnector.customsOfficeListPost(any(), any())(any(), any()))
+          .thenReturn(Future.successful(HttpResponse(ACCEPTED, "")))
+
+        val request = FakeRequest(POST, routes.CustomsReferenceDataController.customsOfficeListPost().url)
+          .withHeaders(
+            "Authorization" -> bearerToken,
+            "Content-Type" -> "application/json"
+          )
+
+        val result = route(app, request).value
+
+        status(result) mustEqual ACCEPTED
+
+        val headerCarrierCaptor: ArgumentCaptor[HeaderCarrier] = ArgumentCaptor.forClass(classOf[HeaderCarrier])
+        verify(mockConnector).customsOfficeListPost(any(), any())(any(), headerCarrierCaptor.capture())
+        headerCarrierCaptor.getValue.authorization.value.value mustBe bearerToken
+      }
+
+      "must return InternalServerError when post unsuccessful" in {
+        forAll(Gen.choose(400, 599)) {
+          errorCode =>
+            beforeEach()
+
+            when(mockConnector.customsOfficeListPost(any(), any())(any(), any()))
+              .thenReturn(Future.successful(HttpResponse(errorCode, "")))
+
+            val request = FakeRequest(POST, routes.CustomsReferenceDataController.customsOfficeListPost().url)
+              .withHeaders(
+                "Authorization" -> bearerToken,
+                "Content-Type" -> "application/json"
+              )
+
+            val result = route(app, request).value
+
+            status(result) mustEqual INTERNAL_SERVER_ERROR
+
+            val headerCarrierCaptor: ArgumentCaptor[HeaderCarrier] = ArgumentCaptor.forClass(classOf[HeaderCarrier])
+            verify(mockConnector).customsOfficeListPost(any(), any())(any(), headerCarrierCaptor.capture())
+            headerCarrierCaptor.getValue.authorization.value.value mustBe bearerToken
+        }
+      }
+
+      "must return BadRequest when post successful" in {
+        when(mockConnector.customsOfficeListPost(any(), any())(any(), any()))
           .thenReturn(Future.successful(HttpResponse(ACCEPTED, "")))
 
         val request = FakeRequest(POST, routes.CustomsReferenceDataController.customsOfficeListPost().url)
@@ -104,34 +165,9 @@ class CustomsReferenceDataControllerSpec extends SpecBase with ScalaCheckPropert
 
         val result = route(app, request).value
 
-        status(result) mustEqual ACCEPTED
+        status(result) mustEqual BAD_REQUEST
 
-        val headerCarrierCaptor: ArgumentCaptor[HeaderCarrier] = ArgumentCaptor.forClass(classOf[HeaderCarrier])
-        verify(mockConnector).customsOfficeListPost(any())(any(), headerCarrierCaptor.capture())
-        headerCarrierCaptor.getValue.authorization.value.value mustBe bearerToken
-      }
-
-      "must return BadRequest when post unsuccessful" in {
-        forAll(Gen.choose(400, 599)) {
-          errorCode =>
-            beforeEach()
-
-            when(mockConnector.customsOfficeListPost(any())(any(), any()))
-              .thenReturn(Future.successful(HttpResponse(errorCode, "")))
-
-            val request = FakeRequest(POST, routes.CustomsReferenceDataController.customsOfficeListPost().url)
-              .withHeaders(
-                "Authorization" -> bearerToken
-              )
-
-            val result = route(app, request).value
-
-            status(result) mustEqual BAD_REQUEST
-
-            val headerCarrierCaptor: ArgumentCaptor[HeaderCarrier] = ArgumentCaptor.forClass(classOf[HeaderCarrier])
-            verify(mockConnector).customsOfficeListPost(any())(any(), headerCarrierCaptor.capture())
-            headerCarrierCaptor.getValue.authorization.value.value mustBe bearerToken
-        }
+        verifyNoInteractions(mockConnector)
       }
     }
   }

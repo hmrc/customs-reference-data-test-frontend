@@ -17,6 +17,7 @@
 package connectors
 
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, urlEqualTo}
+import models.BodyType
 import org.scalatest.OptionValues
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatest.freespec.AnyFreeSpec
@@ -44,44 +45,82 @@ class CustomsReferenceDataConnectorSpec
   "CustomsReferenceDataConnector" - {
 
     "referenceDataListPost" - {
-      "must return status Accepted" in {
+      "must return status Accepted" - {
+        "when XML" in {
+          server.stubFor(
+            post(urlEqualTo("/customs-reference-data/test-only/reference-data-lists"))
+              .willReturn(
+                aResponse()
+                  .withStatus(202)
+              )
+          )
 
-        server.stubFor(
-          post(urlEqualTo("/customs-reference-data/reference-data-lists"))
-            .willReturn(
-              aResponse()
-                .withStatus(202)
-            )
-        )
+          val tempFile = File.createTempFile("test", ".gz")
 
-        val tempFile = File.createTempFile("test", ".gz")
+          val result: Future[HttpResponse] = connector.referenceDataListPost(tempFile, BodyType.XML)
 
-        val result: Future[HttpResponse] = connector.referenceDataListPost(tempFile)
+          result.futureValue.status mustBe 202
 
-        result.futureValue.status mustBe 202
+          tempFile.deleteOnExit()
+        }
 
-        tempFile.deleteOnExit()
+        "when JSON" in {
+          server.stubFor(
+            post(urlEqualTo("/customs-reference-data/reference-data-lists"))
+              .willReturn(
+                aResponse()
+                  .withStatus(202)
+              )
+          )
+
+          val tempFile = File.createTempFile("test", ".gz")
+
+          val result: Future[HttpResponse] = connector.referenceDataListPost(tempFile, BodyType.JSON)
+
+          result.futureValue.status mustBe 202
+
+          tempFile.deleteOnExit()
+        }
       }
     }
 
     "customsOfficeListPost" - {
-      "must return status Accepted" in {
+      "must return status Accepted" - {
+        "when XML" in {
+          server.stubFor(
+            post(urlEqualTo("/customs-reference-data/test-only/customs-office-lists"))
+              .willReturn(
+                aResponse()
+                  .withStatus(202)
+              )
+          )
 
-        server.stubFor(
-          post(urlEqualTo("/customs-reference-data/customs-office-lists"))
-            .willReturn(
-              aResponse()
-                .withStatus(202)
-            )
-        )
+          val tempFile = File.createTempFile("test", ".gz")
 
-        val tempFile = File.createTempFile("test", ".gz")
+          val result: Future[HttpResponse] = connector.customsOfficeListPost(tempFile, BodyType.XML)
 
-        val result: Future[HttpResponse] = connector.customsOfficeListPost(tempFile)
+          result.futureValue.status mustBe 202
 
-        result.futureValue.status mustBe 202
+          tempFile.deleteOnExit()
+        }
 
-        tempFile.deleteOnExit()
+        "when JSON" in {
+          server.stubFor(
+            post(urlEqualTo("/customs-reference-data/customs-office-lists"))
+              .willReturn(
+                aResponse()
+                  .withStatus(202)
+              )
+          )
+
+          val tempFile = File.createTempFile("test", ".gz")
+
+          val result: Future[HttpResponse] = connector.customsOfficeListPost(tempFile, BodyType.JSON)
+
+          result.futureValue.status mustBe 202
+
+          tempFile.deleteOnExit()
+        }
       }
     }
 

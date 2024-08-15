@@ -3,10 +3,10 @@
 GET        /assets/*file                        controllers.Assets.versioned(path = "/public", file: Asset)
 
 + nocsrf
-POST       /reference-data-list-ingestion       controllers.CustomsReferenceDataController.referenceDataListPost()
+POST       /reference-data-lists                controllers.CustomsReferenceDataController.referenceDataListPost()
 
 + nocsrf
-POST       /customs-office-list-ingestion       controllers.CustomsReferenceDataController.customsOfficeListPost()
+POST       /customs-office-lists                controllers.CustomsReferenceDataController.customsOfficeListPost()
 
 + nocsrf
 PUT        /schedule-action/reference-data      controllers.TransitMovementsTraderReferenceDataEtlController.referenceDataImport()
