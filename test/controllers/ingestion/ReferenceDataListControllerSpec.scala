@@ -84,6 +84,7 @@ class ReferenceDataListControllerSpec extends SpecBase with ScalaCheckPropertyCh
         val result = route(app, fakeRequest).value
 
         status(result) mustBe OK
+        contentAsJson(result) mustBe testJson
       }
     }
 

@@ -40,7 +40,7 @@ abstract class IngestionController[T <: XmlToJsonConverter](
         implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequest(request)
         val json = converter.convert(request.body)
         ingest(json).map(_.status).map {
-          case ACCEPTED    => Ok
+          case ACCEPTED    => Ok(json)
           case BAD_REQUEST => BadRequest
           case _           => InternalServerError
         }
