@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,10 @@
  * limitations under the License.
  */
 
-package models
+package services
 
-import uk.gov.hmrc.http.HeaderCarrier
+import java.util.UUID
 
-sealed trait BodyType
-
-object BodyType {
-
-  case object JSON extends BodyType
-  case object XML extends BodyType
-
-  def apply(hc: HeaderCarrier): Option[BodyType] =
-    hc.headers(Seq("Content-Type")) match {
-      case headers if headers.map(_._2).contains("application/xml") => Some(XML)
-      case headers if headers.map(_._2).contains("application/json") => Some(JSON)
-      case _ => None
-    }
+class UUIDService {
+  def randomUUID(): UUID = UUID.randomUUID()
 }

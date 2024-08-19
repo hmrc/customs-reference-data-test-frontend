@@ -17,14 +17,13 @@
 package connectors
 
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, urlEqualTo}
-import models.BodyType
 import org.scalatest.OptionValues
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.must.Matchers
+import play.api.libs.json.Json
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 
-import java.io.File
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
@@ -45,82 +44,38 @@ class CustomsReferenceDataConnectorSpec
   "CustomsReferenceDataConnector" - {
 
     "referenceDataListPost" - {
-      "must return status Accepted" - {
-        "when XML" in {
-          server.stubFor(
-            post(urlEqualTo("/customs-reference-data/test-only/reference-data-lists"))
-              .willReturn(
-                aResponse()
-                  .withStatus(202)
-              )
-          )
+      "must return status Accepted" in {
+        server.stubFor(
+          post(urlEqualTo("/customs-reference-data/reference-data-lists"))
+            .willReturn(
+              aResponse()
+                .withStatus(202)
+            )
+        )
 
-          val tempFile = File.createTempFile("test", ".gz")
+        val body = Json.obj("foo" -> "bar")
 
-          val result: Future[HttpResponse] = connector.referenceDataListPost(tempFile, BodyType.XML)
+        val result: Future[HttpResponse] = connector.postReferenceDataList(body)
 
-          result.futureValue.status mustBe 202
-
-          tempFile.deleteOnExit()
-        }
-
-        "when JSON" in {
-          server.stubFor(
-            post(urlEqualTo("/customs-reference-data/reference-data-lists"))
-              .willReturn(
-                aResponse()
-                  .withStatus(202)
-              )
-          )
-
-          val tempFile = File.createTempFile("test", ".gz")
-
-          val result: Future[HttpResponse] = connector.referenceDataListPost(tempFile, BodyType.JSON)
-
-          result.futureValue.status mustBe 202
-
-          tempFile.deleteOnExit()
-        }
+        result.futureValue.status mustBe 202
       }
     }
 
     "customsOfficeListPost" - {
-      "must return status Accepted" - {
-        "when XML" in {
-          server.stubFor(
-            post(urlEqualTo("/customs-reference-data/test-only/customs-office-lists"))
-              .willReturn(
-                aResponse()
-                  .withStatus(202)
-              )
-          )
+      "must return status Accepted" in {
+        server.stubFor(
+          post(urlEqualTo("/customs-reference-data/customs-office-lists"))
+            .willReturn(
+              aResponse()
+                .withStatus(202)
+            )
+        )
 
-          val tempFile = File.createTempFile("test", ".gz")
+        val body = Json.obj("foo" -> "bar")
 
-          val result: Future[HttpResponse] = connector.customsOfficeListPost(tempFile, BodyType.XML)
+        val result: Future[HttpResponse] = connector.postCustomsOfficeLists(body)
 
-          result.futureValue.status mustBe 202
-
-          tempFile.deleteOnExit()
-        }
-
-        "when JSON" in {
-          server.stubFor(
-            post(urlEqualTo("/customs-reference-data/customs-office-lists"))
-              .willReturn(
-                aResponse()
-                  .withStatus(202)
-              )
-          )
-
-          val tempFile = File.createTempFile("test", ".gz")
-
-          val result: Future[HttpResponse] = connector.customsOfficeListPost(tempFile, BodyType.JSON)
-
-          result.futureValue.status mustBe 202
-
-          tempFile.deleteOnExit()
-        }
+        result.futureValue.status mustBe 202
       }
     }
 
@@ -137,7 +92,7 @@ class CustomsReferenceDataConnectorSpec
             )
         )
 
-        val result: Future[HttpResponse] = connector.referenceDataListGet(listName)
+        val result: Future[HttpResponse] = connector.getList(listName)
 
         result.futureValue.status mustBe 200
       }
