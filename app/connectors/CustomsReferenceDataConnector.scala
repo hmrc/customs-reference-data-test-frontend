@@ -17,42 +17,41 @@
 package connectors
 
 import config.AppConfig
-import models.BodyType
+import play.api.libs.json.JsValue
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.client.HttpClientV2
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps}
 
-import java.io.File
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class CustomsReferenceDataConnector @Inject()(http: HttpClientV2, config: AppConfig) {
 
-  def referenceDataListPost(body: File, bodyType: BodyType)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
-    val url = bodyType match {
-      case BodyType.JSON => url"${config.customsReferenceDataUrl}/reference-data-lists"
-      case BodyType.XML => url"${config.customsReferenceDataUrl}/test-only/reference-data-lists"
-    }
+  def postReferenceDataList(body: JsValue)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
+    val url = url"${config.customsReferenceDataUrl}/reference-data-lists"
     http
       .post(url)
-      .setHeader(hc.headers(Seq("Accept", "Accept-Encoding", "Content-Type")): _*)
+      .setHeader(
+        "Accept" -> "application/vnd.hmrc.2.0+json",
+        "Content-Type" -> "application/json"
+      )
       .withBody(body)
       .execute[HttpResponse]
   }
 
-  def customsOfficeListPost(body: File, bodyType: BodyType)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
-    val url = bodyType match {
-      case BodyType.JSON => url"${config.customsReferenceDataUrl}/customs-office-lists"
-      case BodyType.XML => url"${config.customsReferenceDataUrl}/test-only/customs-office-lists"
-    }
+  def postCustomsOfficeLists(body: JsValue)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
+    val url = url"${config.customsReferenceDataUrl}/customs-office-lists"
     http
       .post(url)
-      .setHeader(hc.headers(Seq("Accept", "Accept-Encoding", "Content-Type")): _*)
+      .setHeader(
+        "Accept" -> "application/vnd.hmrc.2.0+json",
+        "Content-Type" -> "application/json"
+      )
       .withBody(body)
       .execute[HttpResponse]
   }
 
-  def referenceDataListGet(listName: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
+  def getList(listName: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
     val url = url"${config.customsReferenceDataUrl}/lists/$listName"
     http
       .get(url)
