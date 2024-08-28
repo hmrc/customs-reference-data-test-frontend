@@ -9,15 +9,15 @@ lazy val microservice = Project(appName, file("."))
   .disablePlugins(JUnitXmlReportPlugin)
   .settings(
     majorVersion := 0,
-    scalaVersion := "2.13.12",
+    scalaVersion := "3.5.0",
     libraryDependencies ++= AppDependencies.compile ++ AppDependencies.test,
     PlayKeys.playDefaultPort := 9493,
     scalacOptions += "-Wconf:src=routes/.*:s"
   )
-  .settings(inConfig(Test)(testSettings): _*)
+  .settings(inConfig(Test)(testSettings) *)
   .settings(resolvers += Resolver.jcenterRepo)
 
-lazy val testSettings: Seq[Def.Setting[_]] = Seq(
+lazy val testSettings: Seq[Def.Setting[?]] = Seq(
   unmanagedResourceDirectories += baseDirectory.value / "test" / "resources",
   javaOptions ++= Seq(
     "-Dconfig.resource=test.application.conf"

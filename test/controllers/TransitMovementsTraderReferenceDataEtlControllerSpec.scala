@@ -48,7 +48,7 @@ class TransitMovementsTraderReferenceDataEtlControllerSpec extends SpecBase {
     override def cookie(name: String): Option[WSCookie] = ???
     override def body: String = ???
     override def bodyAsBytes: ByteString = ???
-    override def bodyAsSource: Source[ByteString, _] = ???
+    override def bodyAsSource: Source[ByteString, ?] = ???
     override def allHeaders: Map[String, Seq[String]] = ???
     override def xml: Elem = ???
     override def json: JsValue = ???

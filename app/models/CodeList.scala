@@ -37,7 +37,7 @@ sealed trait CodeList {
         }
       }
       .map {
-        fields => Json.obj(fields: _*)
+        fields => Json.obj(fields *)
       }
 
   def fields(entry: Node): Seq[Seq[(String, Option[JsValueWrapper])]] =

@@ -30,7 +30,7 @@ class TransitMovementsTraderReferenceDataEtlController @Inject()(
 
   def referenceDataImport(): Action[AnyContent] =
     Action.async {
-      _: Request[AnyContent] =>
+      (_: Request[AnyContent]) =>
         connector.referenceDataImport().map {
           _.status match {
               case OK => Ok

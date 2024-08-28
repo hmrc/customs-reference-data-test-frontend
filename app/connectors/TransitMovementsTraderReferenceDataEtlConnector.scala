@@ -19,6 +19,7 @@ package connectors
 import config.AppConfig
 import play.api.libs.json.Json
 import play.api.libs.ws.{WSClient, WSResponse}
+import play.api.libs.ws.JsonBodyWritables._
 
 import javax.inject.Inject
 import scala.concurrent.Future
