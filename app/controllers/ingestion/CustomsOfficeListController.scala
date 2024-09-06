@@ -18,13 +18,12 @@ package controllers.ingestion
 
 import connectors.CustomsReferenceDataConnector
 import play.api.libs.json.JsValue
-import play.api.mvc.{Action, MessagesControllerComponents}
+import play.api.mvc.MessagesControllerComponents
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import utils.XmlToJsonConverter.CustomsOfficeListXmlToJsonConverter
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
-import scala.xml.NodeSeq
 
 class CustomsOfficeListController @Inject()(
   mcc: MessagesControllerComponents,
@@ -32,13 +31,6 @@ class CustomsOfficeListController @Inject()(
   converter: CustomsOfficeListXmlToJsonConverter
 )(implicit ec: ExecutionContext)
     extends IngestionController[CustomsOfficeListXmlToJsonConverter](mcc, converter) {
-
-  /**
-    * Download the Customs Office List (COL) zip file from https://ec.europa.eu/taxation_customs/dds2/rd/rd_download_home.jsp?Lang=en
-    * Unzip the download, cd into it and run `gzip COL-Generic-YYYYMMDD.xml` where `YYYYMMDD` is today's date
-    * Attach this to the request body as a binary
-    */
-  override def post(): Action[NodeSeq] = super.post()
 
   override def ingest(body: JsValue)(implicit hc: HeaderCarrier): Future[HttpResponse] =
     connector.postCustomsOfficeLists(body)
