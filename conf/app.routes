@@ -9,7 +9,4 @@ POST       /reference-data-lists                controllers.ingestion.ReferenceD
 POST       /customs-office-lists                controllers.ingestion.CustomsOfficeListController.post()
 
 + nocsrf
-PUT        /schedule-action/reference-data      controllers.TransitMovementsTraderReferenceDataEtlController.referenceDataImport()
-
-+ nocsrf
 GET        /reference-data-list/:listName       controllers.consumption.CustomsReferenceDataController.get(listName: String)
