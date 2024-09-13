@@ -28,11 +28,5 @@ class AppConfig @Inject()(config: Configuration, servicesConfig: ServicesConfig)
     s"$baseUrl/$startUrl"
   }
 
-  lazy val transitMovementsTraderReferenceDataEtlUrl: String = {
-    val baseUrl = servicesConfig.baseUrl("transit-movements-trader-reference-data-etl")
-    val startUrl = config.get[String]("microservice.services.transit-movements-trader-reference-data-etl.startUrl")
-    s"$baseUrl/$startUrl"
-  }
-
   lazy val acceptHeader = config.get[String]("accept-header")
 }
