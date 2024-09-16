@@ -70,7 +70,7 @@ class CustomsOfficeListControllerSpec extends SpecBase with ScalaCheckPropertyCh
     def fakeRequest: FakeRequest[AnyContentAsXml] =
       FakeRequest(POST, routes.CustomsOfficeListController.post().url)
         .withXmlBody(testXml)
-        .withHeaders(headers: _*)
+        .withHeaders(headers *)
 
     "must return Ok" - {
       "when the data has been validated and processed" in {

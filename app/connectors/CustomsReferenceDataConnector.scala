@@ -21,6 +21,7 @@ import play.api.libs.json.JsValue
 import uk.gov.hmrc.http.HttpReads.Implicits._
 import uk.gov.hmrc.http.client.HttpClientV2
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps}
+import play.api.libs.ws.JsonBodyWritables._
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
@@ -55,7 +56,7 @@ class CustomsReferenceDataConnector @Inject()(http: HttpClientV2, config: AppCon
     val url = url"${config.customsReferenceDataUrl}/lists/$listName"
     http
       .get(url)
-      .setHeader(hc.headers(Seq("Accept")): _*)
+      .setHeader(hc.headers(Seq("Accept")) *)
       .execute[HttpResponse]
   }
 
