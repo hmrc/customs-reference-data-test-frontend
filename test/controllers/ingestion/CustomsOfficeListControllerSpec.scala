@@ -19,16 +19,16 @@ package controllers.ingestion
 import base.SpecBase
 import connectors.CustomsReferenceDataConnector
 import org.mockito.ArgumentMatchers.{any, eq => eqTo}
-import org.mockito.Mockito.{reset, when}
+import org.mockito.Mockito.{reset, verifyNoInteractions, when}
 import org.scalatestplus.mockito.MockitoSugar.mock
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.Application
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.Json
-import play.api.mvc.AnyContentAsXml
+import play.api.mvc.{AnyContentAsJson, AnyContentAsXml}
 import play.api.test.FakeRequest
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import uk.gov.hmrc.http.HttpResponse
 import utils.XmlToJsonConverter.CustomsOfficeListXmlToJsonConverter
 
@@ -67,32 +67,27 @@ class CustomsOfficeListControllerSpec extends SpecBase with ScalaCheckPropertyCh
 
   "post" - {
 
-    def fakeRequest: FakeRequest[AnyContentAsXml] =
+    def fakeRequest: FakeRequest[AnyContentAsJson] =
       FakeRequest(POST, routes.CustomsOfficeListController.post().url)
-        .withXmlBody(testXml)
+        .withJsonBody(testJson)
         .withHeaders(headers *)
 
-    "must return Ok" - {
+    "must return Accepted" - {
       "when the data has been validated and processed" in {
-
-        when(mockXmlToJsonConverter.convert(eqTo(testXml)))
-          .thenReturn(testJson)
 
         when(mockConnector.postCustomsOfficeLists(eqTo(testJson))(any(), any()))
           .thenReturn(Future.successful(HttpResponse(ACCEPTED, "")))
 
         val result = route(app, fakeRequest).value
 
-        status(result) mustBe OK
-        contentAsJson(result) mustBe testJson
+        status(result) mustBe ACCEPTED
+        
+        verifyNoInteractions(mockXmlToJsonConverter)
       }
     }
 
     "must return Bad Request" - {
       "when a validation error occurs" in {
-
-        when(mockXmlToJsonConverter.convert(eqTo(testXml)))
-          .thenReturn(testJson)
 
         when(mockConnector.postCustomsOfficeLists(eqTo(testJson))(any(), any()))
           .thenReturn(Future.successful(HttpResponse(BAD_REQUEST, "")))
@@ -100,14 +95,13 @@ class CustomsOfficeListControllerSpec extends SpecBase with ScalaCheckPropertyCh
         val result = route(app, fakeRequest).value
 
         status(result) mustBe BAD_REQUEST
+
+        verifyNoInteractions(mockXmlToJsonConverter)
       }
     }
 
     "must return Internal Server Error" - {
       "when the data was not processed successfully" in {
-
-        when(mockXmlToJsonConverter.convert(eqTo(testXml)))
-          .thenReturn(testJson)
 
         when(mockConnector.postCustomsOfficeLists(eqTo(testJson))(any(), any()))
           .thenReturn(Future.successful(HttpResponse(INTERNAL_SERVER_ERROR, "")))
@@ -115,7 +109,30 @@ class CustomsOfficeListControllerSpec extends SpecBase with ScalaCheckPropertyCh
         val result = route(app, fakeRequest).value
 
         status(result) mustBe INTERNAL_SERVER_ERROR
+
+        verifyNoInteractions(mockXmlToJsonConverter)
       }
+    }
+  }
+
+  "convert" - {
+
+    def fakeRequest: FakeRequest[AnyContentAsXml] =
+      FakeRequest(POST, routes.CustomsOfficeListController.convert().url)
+        .withXmlBody(testXml)
+        .withHeaders(headers *)
+
+    "must return Ok" in {
+      
+      when(mockXmlToJsonConverter.convert(eqTo(testXml)))
+        .thenReturn(testJson)
+
+      val result = route(app, fakeRequest).value
+
+      status(result) mustBe OK
+      contentAsJson(result) mustBe testJson
+
+      verifyNoInteractions(mockConnector)
     }
   }
 }

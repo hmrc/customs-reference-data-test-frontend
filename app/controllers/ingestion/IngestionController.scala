@@ -34,15 +34,18 @@ abstract class IngestionController[T <: XmlToJsonConverter](
 
   def ingest(body: JsValue)(implicit hc: HeaderCarrier): Future[HttpResponse]
 
-  def post(): Action[NodeSeq] =
-    Action(parse.xml).async {
+  def convert(): Action[NodeSeq] =
+    Action(parse.xml) {
+      request =>
+        val json = converter.convert(request.body)
+        Ok(json)
+    }
+
+  def post(): Action[JsValue] =
+    Action(parse.json).async {
       request =>
         implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequest(request)
-        val json = converter.convert(request.body)
-        ingest(json).map(_.status).map {
-          case ACCEPTED    => Ok(json)
-          case BAD_REQUEST => BadRequest
-          case _           => InternalServerError
-        }
+        val json = request.body
+        ingest(json).map(_.status).map(Status)
     }
 }
