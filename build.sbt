@@ -16,6 +16,7 @@ lazy val microservice = Project(appName, file("."))
   )
   .settings(inConfig(Test)(testSettings) *)
   .settings(resolvers += Resolver.jcenterRepo)
+  .settings(CodeCoverageSettings.settings*)
 
 lazy val testSettings: Seq[Def.Setting[?]] = Seq(
   unmanagedResourceDirectories += baseDirectory.value / "test" / "resources",
