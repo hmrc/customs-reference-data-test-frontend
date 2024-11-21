@@ -21,7 +21,7 @@ This is a service for proxying requests to the protected customs-reference-data 
   * 503 - This could be caused by a memory issue. Check the logs and revise jvm mx and ms values as appropriate.
 
 ### POST /convert/customs-office-lists
-* Download the Customs Office List (COL) zip file from https://ec.europa.eu/taxation_customs/dds2/rd/rd_download_home.jsp?Lang=en
+* Download the `Customs Office List (COL)` zip file from https://ec.europa.eu/taxation_customs/dds2/rd/rd_download_home.jsp?Lang=en
 * Unzip the `COL-Generic-YYYYMMDD.zip` file and gzip it with `gzip COL-Generic-YYYYMMDD.xml` (where `YYYYMMDD` is today's date)
 * Attach this to the request body as a binary
 * Response:
