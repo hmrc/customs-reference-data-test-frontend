@@ -179,11 +179,12 @@ object CodeList {
         case (acc, office) =>
           acc ++ super.fields(entry).map {
             _ ++ Seq(
-              "languageCode" -> getDataItem(office, "LanguageCode"),
-              "name"         -> getDataItem(office, "CustomsOfficeUsualName"),
-              "phoneNumber"  -> getDataItem(entry, "PhoneNumber"),
-              "id"           -> getDataItem(entry, "ReferenceNumber"),
-              "countryId"    -> getDataItem(entry, "CountryCode"),
+              "languageCode"  -> getDataItem(office, "LanguageCode"),
+              "name"          -> getDataItem(office, "CustomsOfficeUsualName"),
+              "phoneNumber"   -> getDataItem(entry, "PhoneNumber"),
+              "eMailAddress"  -> getDataItem(entry, "EMailAddress"),
+              "id"            -> getDataItem(entry, "ReferenceNumber"),
+              "countryId"     -> getDataItem(entry, "CountryCode"),
               "roles" -> {
                 val nodes = (entry \\ "dataItem").filter(_.attributes("name").map(_.text).contains("Role"))
                 val array = nodes.map(_.text).distinct.foldLeft(JsArray()) {
