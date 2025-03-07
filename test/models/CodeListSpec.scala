@@ -561,9 +561,9 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
           <ns1:RDEntry>
             <ns2:RDEntryStatus>
               <ns3:state>valid</ns3:state>
-              <ns3:activeFrom>2020-03-23</ns3:activeFrom>
+              <ns3:activeFrom>2019-01-01</ns3:activeFrom>
             </ns2:RDEntryStatus>
-            <ns2:dataItem name="ReferenceNumber">AD000001</ns2:dataItem>
+            <ns2:dataItem name="ReferenceNumber">AD000002</ns2:dataItem>
             <ns2:dataItem name="ReferenceNumberMainOffice">AD000003</ns2:dataItem>
             <ns2:dataItem name="ReferenceNumberHigherAuthority">AD000003</ns2:dataItem>
             <ns2:dataItem name="ReferenceNumberCompetentAuthorityOfEnquiry">AD000003</ns2:dataItem>
@@ -571,23 +571,40 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
             <ns2:dataItem name="CountryCode">AD</ns2:dataItem>
             <ns2:dataItem name="UnLocodeId">ALV</ns2:dataItem>
             <ns2:dataItem name="NctsEntryDate">20070614</ns2:dataItem>
-            <ns2:dataItem name="NearestOffice">ES002541</ns2:dataItem>
-            <ns2:dataItem name="PostalCode">AD600</ns2:dataItem>
-            <ns2:dataItem name="PhoneNumber">+ (376) 84 1090</ns2:dataItem>
-            <ns2:dataItem name="FaxNumber">+ (376) 841 898</ns2:dataItem>
-            <ns2:dataItem name="GeoInfoCode">ES/AD</ns2:dataItem>
+            <ns2:dataItem name="NearestOffice">FR002510</ns2:dataItem>
+            <ns2:dataItem name="PostalCode">AD200</ns2:dataItem>
+            <ns2:dataItem name="PhoneNumber">+ (376) 755125</ns2:dataItem>
+            <ns2:dataItem name="FaxNumber">+ (376) 856202</ns2:dataItem>
+            <ns2:dataItem name="EMailAddress">duana.pasdelacasa@andorra.ad</ns2:dataItem>
+            <ns2:dataItem name="GeoInfoCode">FR/AD</ns2:dataItem>
             <ns2:dataItem name="TraderDedicated">0</ns2:dataItem>
             <ns2:dataGroup name="CustomsOfficeLsd">
               <ns2:dataItem name="LanguageCode">EN</ns2:dataItem>
-              <ns2:dataItem name="CustomsOfficeUsualName">CUSTOMS OFFICE SANT JULIÀ DE LÒRIA</ns2:dataItem>
-              <ns2:dataItem name="StreetAndNumber">RIU RUNER BORDER</ns2:dataItem>
-              <ns2:dataItem name="City">SANT JULIÀ DE LÒRIA</ns2:dataItem>
+              <ns2:dataItem name="CustomsOfficeUsualName">DCNJ PORTA</ns2:dataItem>
+              <ns2:dataItem name="StreetAndNumber">BORDER PAS DE LA CASA</ns2:dataItem>
+              <ns2:dataItem name="City">PAS DE LA CASA</ns2:dataItem>
+              <ns2:dataItem name="PrefixSuffixFlag">0</ns2:dataItem>
+              <ns2:dataItem name="SpaceToAdd">0</ns2:dataItem>
+            </ns2:dataGroup>
+            <ns2:dataGroup name="CustomsOfficeLsd">
+              <ns2:dataItem name="LanguageCode">ES</ns2:dataItem>
+              <ns2:dataItem name="CustomsOfficeUsualName">DCNJ PORTA</ns2:dataItem>
+              <ns2:dataItem name="StreetAndNumber">PAS DE LA CASA</ns2:dataItem>
+              <ns2:dataItem name="City">PAS DE LA CASA</ns2:dataItem>
+              <ns2:dataItem name="PrefixSuffixFlag">0</ns2:dataItem>
+              <ns2:dataItem name="SpaceToAdd">0</ns2:dataItem>
+            </ns2:dataGroup>
+            <ns2:dataGroup name="CustomsOfficeLsd">
+              <ns2:dataItem name="LanguageCode">FR</ns2:dataItem>
+              <ns2:dataItem name="CustomsOfficeUsualName">DCNJ PORTA</ns2:dataItem>
+              <ns2:dataItem name="StreetAndNumber">PAS DE LA CASA</ns2:dataItem>
+              <ns2:dataItem name="City">PAS DE LA CASA</ns2:dataItem>
               <ns2:dataItem name="PrefixSuffixFlag">0</ns2:dataItem>
               <ns2:dataItem name="SpaceToAdd">0</ns2:dataItem>
             </ns2:dataGroup>
             <ns2:dataGroup name="CustomsOfficeTimetable">
               <ns2:dataItem name="SeasonCode">1</ns2:dataItem>
-              <ns2:dataItem name="SeasonName">All Year</ns2:dataItem>
+              <ns2:dataItem name="SeasonName">ALL YEAR</ns2:dataItem>
               <ns2:dataItem name="SeasonStartDate">20180101</ns2:dataItem>
               <ns2:dataItem name="SeasonEndDate">20991231</ns2:dataItem>
               <ns2:dataGroup name="CustomsOfficeTimetableLine">
@@ -595,10 +612,6 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
                 <ns2:dataItem name="OpeningHoursTimeFirstPeriodFrom">0800</ns2:dataItem>
                 <ns2:dataItem name="OpeningHoursTimeFirstPeriodTo">2000</ns2:dataItem>
                 <ns2:dataItem name="DayInTheWeekEndDay">5</ns2:dataItem>
-                <ns2:dataGroup name="CustomsOfficeRoleTrafficCompetence">
-                  <ns2:dataItem name="Role">AUT</ns2:dataItem>
-                  <ns2:dataItem name="TrafficType">N/A</ns2:dataItem>
-                </ns2:dataGroup>
                 <ns2:dataGroup name="CustomsOfficeRoleTrafficCompetence">
                   <ns2:dataItem name="Role">DEP</ns2:dataItem>
                   <ns2:dataItem name="TrafficType">R</ns2:dataItem>
@@ -631,22 +644,6 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
                 </ns2:dataGroup>
               </ns2:dataGroup>
             </ns2:dataGroup>
-            <ns2:dataGroup name="CustomsOfficeLsd">
-              <ns2:dataItem name="LanguageCode">ES</ns2:dataItem>
-              <ns2:dataItem name="CustomsOfficeUsualName">ADUANA DE ST. JULIÀ DE LÒRIA</ns2:dataItem>
-              <ns2:dataItem name="StreetAndNumber">FRONTERA RIU RUNER</ns2:dataItem>
-              <ns2:dataItem name="City">SANT JULIÀ DE LÒRIA</ns2:dataItem>
-              <ns2:dataItem name="PrefixSuffixFlag">0</ns2:dataItem>
-              <ns2:dataItem name="SpaceToAdd">0</ns2:dataItem>
-            </ns2:dataGroup>
-            <ns2:dataGroup name="CustomsOfficeLsd">
-              <ns2:dataItem name="LanguageCode">FR</ns2:dataItem>
-              <ns2:dataItem name="CustomsOfficeUsualName">BUREAU DE SANT JULIÀ DE LÒRIA</ns2:dataItem>
-              <ns2:dataItem name="StreetAndNumber">FRONTIÈRE RIU RUNER</ns2:dataItem>
-              <ns2:dataItem name="City">SANT JULIÀ DE LÒRIA</ns2:dataItem>
-              <ns2:dataItem name="PrefixSuffixFlag">0</ns2:dataItem>
-              <ns2:dataItem name="SpaceToAdd">0</ns2:dataItem>
-            </ns2:dataGroup>
           </ns1:RDEntry>
 
         val result = CodeList("CustomsOffices").value
@@ -658,15 +655,15 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
         result.json(xml) mustBe Seq(
           Json.obj(
             "state"        -> "valid",
-            "activeFrom"   -> "2020-03-23",
+            "activeFrom"   -> "2019-01-01",
             "languageCode" -> "EN",
-            "name"         -> "CUSTOMS OFFICE SANT JULIÀ DE LÒRIA",
-            "phoneNumber"  -> "+ (376) 84 1090",
-            "id"           -> "AD000001",
+            "name"         -> "DCNJ PORTA",
+            "phoneNumber"  -> "+ (376) 755125",
+            "eMailAddress"  -> "duana.pasdelacasa@andorra.ad",
+            "id"           -> "AD000002",
             "countryId"    -> "AD",
             "roles" -> JsArray(
               Seq(
-                Json.obj("role" -> "AUT"),
                 Json.obj("role" -> "DEP"),
                 Json.obj("role" -> "DES"),
                 Json.obj("role" -> "TRA")
@@ -675,15 +672,15 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
           ),
           Json.obj(
             "state"        -> "valid",
-            "activeFrom"   -> "2020-03-23",
+            "activeFrom"   -> "2019-01-01",
             "languageCode" -> "ES",
-            "name"         -> "ADUANA DE ST. JULIÀ DE LÒRIA",
-            "phoneNumber"  -> "+ (376) 84 1090",
-            "id"           -> "AD000001",
+            "name"         -> "DCNJ PORTA",
+            "phoneNumber"  -> "+ (376) 755125",
+            "eMailAddress"  -> "duana.pasdelacasa@andorra.ad",
+            "id"           -> "AD000002",
             "countryId"    -> "AD",
             "roles" -> JsArray(
               Seq(
-                Json.obj("role" -> "AUT"),
                 Json.obj("role" -> "DEP"),
                 Json.obj("role" -> "DES"),
                 Json.obj("role" -> "TRA")
@@ -692,15 +689,15 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
           ),
           Json.obj(
             "state"        -> "valid",
-            "activeFrom"   -> "2020-03-23",
+            "activeFrom"   -> "2019-01-01",
             "languageCode" -> "FR",
-            "name"         -> "BUREAU DE SANT JULIÀ DE LÒRIA",
-            "phoneNumber"  -> "+ (376) 84 1090",
-            "id"           -> "AD000001",
+            "name"         -> "DCNJ PORTA",
+            "phoneNumber"  -> "+ (376) 755125",
+            "eMailAddress"  -> "duana.pasdelacasa@andorra.ad",
+            "id"           -> "AD000002",
             "countryId"    -> "AD",
             "roles" -> JsArray(
               Seq(
-                Json.obj("role" -> "AUT"),
                 Json.obj("role" -> "DEP"),
                 Json.obj("role" -> "DES"),
                 Json.obj("role" -> "TRA")
