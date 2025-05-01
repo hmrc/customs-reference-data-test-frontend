@@ -34,7 +34,7 @@ class CustomsReferenceDataController @Inject()(
     Action.async {
       request =>
         implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequest(request)
-        connector.getList(listName).map {
+        connector.getList(listName, request.queryString).map {
           result =>
             result.status match {
               case OK        => Ok(result.json)

@@ -52,8 +52,13 @@ class CustomsReferenceDataConnector @Inject()(http: HttpClientV2, config: AppCon
       .execute[HttpResponse]
   }
 
-  def getList(listName: String)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
-    val url = url"${config.customsReferenceDataUrl}/lists/$listName"
+  def getList(listName: String, queryString: Map[String, Seq[String]])(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
+    val queryParameters = queryString.toSeq.flatMap {
+      case (key, values) => values.map {
+        value => key -> value
+      }
+    }
+    val url = url"${config.customsReferenceDataUrl}/lists/$listName?$queryParameters"
     http
       .get(url)
       .setHeader(hc.headers(Seq("Accept")) *)
