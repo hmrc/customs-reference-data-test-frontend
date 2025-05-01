@@ -80,23 +80,65 @@ class CustomsReferenceDataConnectorSpec
     }
 
     "referenceDataListGet" - {
-      "must return status Accepted" in {
+      val listName = "list-name"
+      
+      "must return ok" - {
+        "without query parameters" in {
+          server.stubFor(
+            get(urlEqualTo(s"/customs-reference-data/lists/$listName"))
+              .willReturn(
+                aResponse()
+                  .withStatus(200)
+              )
+          )
 
-        val listName = "list-name"
+          val result: Future[HttpResponse] = connector.getList(listName, Map.empty)
 
-        server.stubFor(
-          get(urlEqualTo(s"/customs-reference-data/lists/$listName"))
-            .willReturn(
-              aResponse()
-                .withStatus(200)
-            )
-        )
+          result.futureValue.status mustBe 200
+        }
+        
+        "with a query parameter" in {
+          server.stubFor(
+            get(urlEqualTo(s"/customs-reference-data/lists/$listName?country=GB"))
+              .willReturn(
+                aResponse()
+                  .withStatus(200)
+              )
+          )
 
-        val result: Future[HttpResponse] = connector.getList(listName)
+          val result: Future[HttpResponse] = connector.getList(listName, Map("country" -> Seq("GB")))
 
-        result.futureValue.status mustBe 200
+          result.futureValue.status mustBe 200
+        }
+        
+        "with multiple query parameters" in {
+          server.stubFor(
+            get(urlEqualTo(s"/customs-reference-data/lists/$listName?country=GB&role=TRA"))
+              .willReturn(
+                aResponse()
+                  .withStatus(200)
+              )
+          )
+
+          val result: Future[HttpResponse] = connector.getList(listName, Map("country" -> Seq("GB"), "role" -> Seq("TRA")))
+
+          result.futureValue.status mustBe 200
+        }
+        
+        "with multiple queries on the same parameter" in {
+          server.stubFor(
+            get(urlEqualTo(s"/customs-reference-data/lists/$listName?country=GB&country=XI"))
+              .willReturn(
+                aResponse()
+                  .withStatus(200)
+              )
+          )
+
+          val result: Future[HttpResponse] = connector.getList(listName, Map("country" -> Seq("GB", "XI")))
+
+          result.futureValue.status mustBe 200
+        }
       }
     }
   }
-
 }

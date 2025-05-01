@@ -19,7 +19,7 @@ package controllers.consumption
 import base.SpecBase
 import connectors.CustomsReferenceDataConnector
 import org.mockito.ArgumentCaptor
-import org.mockito.ArgumentMatchers.{any, eq => eqTo}
+import org.mockito.ArgumentMatchers.{any, eq as eqTo}
 import org.mockito.Mockito.{reset, verify, when}
 import org.scalacheck.Gen
 import org.scalatestplus.mockito.MockitoSugar.mock
@@ -29,7 +29,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.Json
 import play.api.test.FakeRequest
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 
 import scala.concurrent.Future
@@ -53,24 +53,48 @@ class CustomsReferenceDataControllerSpec extends SpecBase with ScalaCheckPropert
 
   "CustomsReferenceDataController" - {
     "get" - {
-      "must return Ok when get successful" in {
-        val json = Json.obj("foo" -> "bar")
+      "must return Ok when get successful" - {
+        "without query parameter" in {
+          val json = Json.obj("foo" -> "bar")
 
-        when(mockConnector.getList(any())(any(), any()))
-          .thenReturn(Future.successful(HttpResponse(OK, json, Map.empty)))
+          when(mockConnector.getList(any(), any())(any(), any()))
+            .thenReturn(Future.successful(HttpResponse(OK, json, Map.empty)))
 
-        val request = FakeRequest(GET, routes.CustomsReferenceDataController.get(listName).url)
-          .withHeaders(
-            "Authorization" -> bearerToken
-          )
+          val request = FakeRequest(GET, routes.CustomsReferenceDataController.get(listName).url)
+            .withHeaders(
+              "Authorization" -> bearerToken
+            )
 
-        val result = route(app, request).value
+          val result = route(app, request).value
 
-        status(result) mustEqual OK
+          status(result) mustEqual OK
 
-        val headerCarrierCaptor: ArgumentCaptor[HeaderCarrier] = ArgumentCaptor.forClass(classOf[HeaderCarrier])
-        verify(mockConnector).getList(eqTo(listName))(any(), headerCarrierCaptor.capture())
-        headerCarrierCaptor.getValue.authorization.value.value mustBe bearerToken
+          val headerCarrierCaptor: ArgumentCaptor[HeaderCarrier] = ArgumentCaptor.forClass(classOf[HeaderCarrier])
+          verify(mockConnector).getList(eqTo(listName), eqTo(Map.empty))(any(), headerCarrierCaptor.capture())
+          headerCarrierCaptor.getValue.authorization.value.value mustBe bearerToken
+        }
+
+        "with query parameter" in {
+          val json = Json.obj("foo" -> "bar")
+
+          when(mockConnector.getList(any(), any())(any(), any()))
+            .thenReturn(Future.successful(HttpResponse(OK, json, Map.empty)))
+
+          val url = s"${routes.CustomsReferenceDataController.get(listName).url}?countryId=GB"
+
+          val request = FakeRequest(GET, url)
+            .withHeaders(
+              "Authorization" -> bearerToken
+            )
+
+          val result = route(app, request).value
+
+          status(result) mustEqual OK
+
+          val headerCarrierCaptor: ArgumentCaptor[HeaderCarrier] = ArgumentCaptor.forClass(classOf[HeaderCarrier])
+          verify(mockConnector).getList(eqTo(listName), eqTo(Map("countryId" -> Seq("GB"))))(any(), headerCarrierCaptor.capture())
+          headerCarrierCaptor.getValue.authorization.value.value mustBe bearerToken
+        }
       }
 
       "must return InternalServerError when get unsuccessful" in {
@@ -78,7 +102,7 @@ class CustomsReferenceDataControllerSpec extends SpecBase with ScalaCheckPropert
           errorCode =>
             beforeEach()
 
-            when(mockConnector.getList(any())(any(), any()))
+            when(mockConnector.getList(any(), any())(any(), any()))
               .thenReturn(Future.successful(HttpResponse(errorCode, "")))
 
             val request = FakeRequest(GET, routes.CustomsReferenceDataController.get(listName).url)
@@ -91,13 +115,13 @@ class CustomsReferenceDataControllerSpec extends SpecBase with ScalaCheckPropert
             status(result) mustEqual INTERNAL_SERVER_ERROR
 
             val headerCarrierCaptor: ArgumentCaptor[HeaderCarrier] = ArgumentCaptor.forClass(classOf[HeaderCarrier])
-            verify(mockConnector).getList(eqTo(listName))(any(), headerCarrierCaptor.capture())
+            verify(mockConnector).getList(eqTo(listName), eqTo(Map.empty))(any(), headerCarrierCaptor.capture())
             headerCarrierCaptor.getValue.authorization.value.value mustBe bearerToken
         }
       }
 
       "must return NotFound when get returns 404" in {
-        when(mockConnector.getList(any())(any(), any()))
+        when(mockConnector.getList(any(), any())(any(), any()))
           .thenReturn(Future.successful(HttpResponse(NOT_FOUND, "")))
 
         val request = FakeRequest(GET, routes.CustomsReferenceDataController.get(listName).url)
@@ -110,7 +134,7 @@ class CustomsReferenceDataControllerSpec extends SpecBase with ScalaCheckPropert
         status(result) mustEqual NOT_FOUND
 
         val headerCarrierCaptor: ArgumentCaptor[HeaderCarrier] = ArgumentCaptor.forClass(classOf[HeaderCarrier])
-        verify(mockConnector).getList(eqTo(listName))(any(), headerCarrierCaptor.capture())
+        verify(mockConnector).getList(eqTo(listName), eqTo(Map.empty))(any(), headerCarrierCaptor.capture())
         headerCarrierCaptor.getValue.authorization.value.value mustBe bearerToken
       }
     }
