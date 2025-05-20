@@ -3,7 +3,6 @@ val appName = "customs-reference-data-test-frontend"
 lazy val microservice = Project(appName, file("."))
   .enablePlugins(
     play.sbt.PlayScala,
-    SbtAutoBuildPlugin,
     SbtDistributablesPlugin
   )
   .disablePlugins(JUnitXmlReportPlugin)
@@ -15,7 +14,6 @@ lazy val microservice = Project(appName, file("."))
     scalacOptions += "-Wconf:src=routes/.*:s"
   )
   .settings(inConfig(Test)(testSettings) *)
-  .settings(resolvers += Resolver.jcenterRepo)
   .settings(CodeCoverageSettings.settings*)
 
 lazy val testSettings: Seq[Def.Setting[?]] = Seq(
