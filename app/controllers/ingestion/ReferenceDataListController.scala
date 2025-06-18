@@ -20,17 +20,15 @@ import connectors.CustomsReferenceDataConnector
 import play.api.libs.json.JsValue
 import play.api.mvc.MessagesControllerComponents
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
-import utils.XmlToJsonConverter.ReferenceDataListXmlToJsonConverter
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class ReferenceDataListController @Inject()(
   mcc: MessagesControllerComponents,
-  connector: CustomsReferenceDataConnector,
-  converter: ReferenceDataListXmlToJsonConverter
+  connector: CustomsReferenceDataConnector
 )(implicit ec: ExecutionContext)
-    extends IngestionController[ReferenceDataListXmlToJsonConverter](mcc, converter) {
+    extends IngestionController(mcc) {
 
   override def ingest(body: JsValue)(implicit hc: HeaderCarrier): Future[HttpResponse] =
     connector.postReferenceDataList(body)

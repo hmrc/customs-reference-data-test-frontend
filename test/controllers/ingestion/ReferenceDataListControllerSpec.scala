@@ -18,32 +18,24 @@ package controllers.ingestion
 
 import base.SpecBase
 import connectors.CustomsReferenceDataConnector
-import org.mockito.ArgumentMatchers.{any, eq => eqTo}
-import org.mockito.Mockito.{reset, verifyNoInteractions, when}
+import org.mockito.ArgumentMatchers.{any, eq as eqTo}
+import org.mockito.Mockito.{reset, when}
 import org.scalatestplus.mockito.MockitoSugar.mock
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.Application
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.Json
-import play.api.mvc.{AnyContentAsJson, AnyContentAsXml}
+import play.api.mvc.AnyContentAsJson
 import play.api.test.FakeRequest
 import play.api.test.Helpers.*
 import uk.gov.hmrc.http.HttpResponse
-import utils.XmlToJsonConverter.ReferenceDataListXmlToJsonConverter
 
 import scala.concurrent.Future
 
 class ReferenceDataListControllerSpec extends SpecBase with ScalaCheckPropertyChecks {
 
-  private val mockXmlToJsonConverter: ReferenceDataListXmlToJsonConverter = mock[ReferenceDataListXmlToJsonConverter]
-
   private val mockConnector: CustomsReferenceDataConnector = mock[CustomsReferenceDataConnector]
-
-  private val testXml =
-    <foo>
-      bar
-    </foo>
 
   private val testJson = Json.obj("foo" -> "bar")
 
@@ -53,14 +45,12 @@ class ReferenceDataListControllerSpec extends SpecBase with ScalaCheckPropertyCh
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    reset(mockXmlToJsonConverter)
     reset(mockConnector)
   }
 
   override def fakeApplication(): Application =
     new GuiceApplicationBuilder()
       .overrides(
-        bind[ReferenceDataListXmlToJsonConverter].toInstance(mockXmlToJsonConverter),
         bind[CustomsReferenceDataConnector].toInstance(mockConnector)
       )
       .build()
@@ -81,8 +71,6 @@ class ReferenceDataListControllerSpec extends SpecBase with ScalaCheckPropertyCh
         val result = route(app, fakeRequest).value
 
         status(result) mustBe ACCEPTED
-
-        verifyNoInteractions(mockXmlToJsonConverter)
       }
     }
 
@@ -95,8 +83,6 @@ class ReferenceDataListControllerSpec extends SpecBase with ScalaCheckPropertyCh
         val result = route(app, fakeRequest).value
 
         status(result) mustBe BAD_REQUEST
-
-        verifyNoInteractions(mockXmlToJsonConverter)
       }
     }
 
@@ -109,30 +95,7 @@ class ReferenceDataListControllerSpec extends SpecBase with ScalaCheckPropertyCh
         val result = route(app, fakeRequest).value
 
         status(result) mustBe INTERNAL_SERVER_ERROR
-
-        verifyNoInteractions(mockXmlToJsonConverter)
       }
-    }
-  }
-
-  "convert" - {
-
-    def fakeRequest: FakeRequest[AnyContentAsXml] =
-      FakeRequest(POST, routes.ReferenceDataListController.convert().url)
-        .withXmlBody(testXml)
-        .withHeaders(headers *)
-
-    "must return Ok" in {
-
-      when(mockXmlToJsonConverter.convert(eqTo(testXml)))
-        .thenReturn(testJson)
-
-      val result = route(app, fakeRequest).value
-
-      status(result) mustBe OK
-      contentAsJson(result) mustBe testJson
-
-      verifyNoInteractions(mockConnector)
     }
   }
 }

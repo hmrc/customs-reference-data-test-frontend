@@ -66,6 +66,25 @@ sealed trait XmlToJsonConverter {
       "lists"              -> lists
     )
   }
+
+  def convert(xml: NodeSeq, listName: String): JsValue = {
+    JsArray {
+      (xml \\ "RDEntity").foldLeft[Seq[JsValue]](Nil) {
+        (acc, entry) =>
+          val codeList = CodeList((entry \ "@name").text)
+          codeList match {
+            case Some(codeList) if codeList.name == listName =>
+              (entry \\ "RDEntry").foldLeft[Seq[JsValue]](Nil) {
+                (acc, entry) =>
+                  val values = codeList.json(entry)
+                  acc ++ values
+              }
+            case _ =>
+              acc
+          }
+      }
+    }
+  }
 }
 
 object XmlToJsonConverter {

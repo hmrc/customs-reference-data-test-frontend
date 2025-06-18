@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2025 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,28 +14,30 @@
  * limitations under the License.
  */
 
-package controllers.ingestion
+package controllers.conversion
 
-import play.api.libs.json.JsValue
 import play.api.mvc.{Action, MessagesControllerComponents}
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
-import uk.gov.hmrc.play.http.HeaderCarrierConverter
+import utils.XmlToJsonConverter
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.xml.NodeSeq
 
-abstract class IngestionController(
-  mcc: MessagesControllerComponents
-)(implicit ec: ExecutionContext)
-    extends FrontendController(mcc) {
+class ConversionController[T <: XmlToJsonConverter](
+  mcc: MessagesControllerComponents,
+  converter: T
+) extends FrontendController(mcc) {
 
-  def ingest(body: JsValue)(implicit hc: HeaderCarrier): Future[HttpResponse]
-
-  def post(): Action[JsValue] =
-    Action(parse.json).async {
+  def convertLists(): Action[NodeSeq] =
+    Action(parse.xml) {
       request =>
-        implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequest(request)
-        val json = request.body
-        ingest(json).map(_.status).map(Status)
+        val json = converter.convert(request.body)
+        Ok(json)
+    }
+
+  def convertList(listName: String): Action[NodeSeq] =
+    Action(parse.xml) {
+      request =>
+        val json = converter.convert(request.body, listName)
+        Ok(json)
     }
 }

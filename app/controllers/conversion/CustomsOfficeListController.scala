@@ -14,22 +14,14 @@
  * limitations under the License.
  */
 
-package controllers.ingestion
+package controllers.conversion
 
-import connectors.CustomsReferenceDataConnector
-import play.api.libs.json.JsValue
 import play.api.mvc.MessagesControllerComponents
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
+import utils.XmlToJsonConverter.CustomsOfficeListXmlToJsonConverter
 
 import javax.inject.Inject
-import scala.concurrent.{ExecutionContext, Future}
 
 class CustomsOfficeListController @Inject()(
   mcc: MessagesControllerComponents,
-  connector: CustomsReferenceDataConnector
-)(implicit ec: ExecutionContext)
-    extends IngestionController(mcc) {
-
-  override def ingest(body: JsValue)(implicit hc: HeaderCarrier): Future[HttpResponse] =
-    connector.postCustomsOfficeLists(body)
-}
+  converter: CustomsOfficeListXmlToJsonConverter
+) extends ConversionController[CustomsOfficeListXmlToJsonConverter](mcc, converter)

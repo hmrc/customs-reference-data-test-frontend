@@ -12,6 +12,13 @@ This is a service for proxying requests to the protected customs-reference-data 
 * Response:
   * 200 - Data successfully converted to JSON
 
+### POST /convert/reference-data-lists/:listName
+* Download the `NCTS-P5` domain from https://ec.europa.eu/taxation_customs/dds2/rd/rd_download_home.jsp?Lang=en
+* Unzip the `RD_NCTS-P5.zip` file and gzip it with `gzip RD_NCTS-P5.xml`
+* Attach this to the request body as a binary
+* Response:
+  * 200 - Data for the given list name successfully converted to JSON
+
 ### POST /ingest/reference-data-lists
 * Retrieve the JSON from the response of the above request, copy it to a file, gzip it and attach this to the request body as a binary
 * Response:
@@ -26,6 +33,13 @@ This is a service for proxying requests to the protected customs-reference-data 
 * Attach this to the request body as a binary
 * Response:
   * 200 - Data successfully converted to JSON
+
+### POST /convert/customs-office-lists/:listName
+* Download the `Customs Office List (COL)` zip file from https://ec.europa.eu/taxation_customs/dds2/rd/rd_download_home.jsp?Lang=en
+* Unzip the `COL-Generic-YYYYMMDD.zip` file and gzip it with `gzip COL-Generic-YYYYMMDD.xml` (where `YYYYMMDD` is today's date)
+* Attach this to the request body as a binary
+* Response:
+  * 200 - Data for the given list name successfully converted to JSON
 
 ### POST /ingest/customs-office-lists
 * Retrieve the JSON from the response of the above request, copy it to a file, gzip it and attach this to the request body as a binary
