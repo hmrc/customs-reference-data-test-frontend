@@ -4,13 +4,21 @@ GET        /assets/*file                        controllers.Assets.versioned(pat
 
 + nocsrf
 POST       /ingest/reference-data-lists         controllers.ingestion.ReferenceDataListController.post()
-+ nocsrf
-POST       /convert/reference-data-lists        controllers.ingestion.ReferenceDataListController.convert()
 
 + nocsrf
 POST       /ingest/customs-office-lists         controllers.ingestion.CustomsOfficeListController.post()
-+ nocsrf
-POST       /convert/customs-office-lists        controllers.ingestion.CustomsOfficeListController.convert()
 
 + nocsrf
 GET        /reference-data-list/:listName       controllers.consumption.CustomsReferenceDataController.get(listName: String)
+
++ nocsrf
+POST       /convert/reference-data-lists        controllers.conversion.ReferenceDataListController.convertLists()
+
++ nocsrf
+POST       /convert/customs-office-lists        controllers.conversion.CustomsOfficeListController.convertLists()
+
++ nocsrf
+POST       /convert/reference-data-lists/:listName      controllers.conversion.ReferenceDataListController.convertList(listName: String)
+
++ nocsrf
+POST       /convert/customs-office-lists/:listName      controllers.conversion.CustomsOfficeListController.convertList(listName: String)

@@ -1783,6 +1783,262 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
           )
         )
       }
+
+      "AdditionalInformationCodeSubset" in {
+        val xml =
+          <ns19:RDEntry>
+            <ns20:RDEntryStatus>
+              <ns21:state>valid</ns21:state>
+              <ns21:activeFrom>2024-10-18</ns21:activeFrom>
+              <ns21:changeJustification>IM582632 IM746136</ns21:changeJustification>
+            </ns20:RDEntryStatus>
+            <ns20:dataItem name="Code">A00</ns20:dataItem>
+            <ns20:LsdList>
+              <ns23:description lang="en">Amendment is not possible</ns23:description>
+            </ns20:LsdList>
+          </ns19:RDEntry>
+
+        val result = CodeList("AdditionalInformationCodeSubset").value
+
+        result.name mustBe "AdditionalInformationCodeSubset"
+
+        result.source mustBe RefDataFeed
+
+        result.json(xml) mustBe Seq(
+          Json.obj(
+            "key"        -> "A00",
+            "value" -> "Amendment is not possible"
+          )
+        )
+      }
+
+      "BusinessRejectionTypeTED2Dep" in {
+        val xml =
+          <ns19:RDEntry>
+            <ns20:RDEntryStatus>
+              <ns21:state>valid</ns21:state>
+              <ns21:activeFrom>2024-12-11</ns21:activeFrom>
+              <ns21:changeJustification>IM555918 IM743640 IM169339</ns21:changeJustification>
+            </ns20:RDEntryStatus>
+            <ns20:dataItem name="BusinessRejectionTypeTED2DepCode">014</ns20:dataItem>
+            <ns20:LsdList>
+              <ns23:description lang="en">Rejection of CD014D - DECLARATION INVALIDATION REQUEST ENS (C_DEC_INV_ENS)</ns23:description>
+            </ns20:LsdList>
+          </ns19:RDEntry>
+
+        val result = CodeList("BusinessRejectionTypeTED2Dep").value
+
+        result.name mustBe "BusinessRejectionTypeTED2Dep"
+
+        result.source mustBe RefDataFeed
+
+        result.json(xml) mustBe Seq(
+          Json.obj(
+            "key"        -> "014",
+            "value" -> "Rejection of CD014D - DECLARATION INVALIDATION REQUEST ENS (C_DEC_INV_ENS)"
+          )
+        )
+      }
+
+      "BusinessRejectionTypeTra" in {
+        val xml =
+          <ns19:RDEntry>
+            <ns20:RDEntryStatus>
+              <ns21:state>valid</ns21:state>
+              <ns21:activeFrom>2024-12-11</ns21:activeFrom>
+              <ns21:changeJustification>IM555920 IM743640 IM169339</ns21:changeJustification>
+            </ns20:RDEntryStatus>
+            <ns20:dataItem name="BusinessRejectionTypeTraCode">117</ns20:dataItem>
+            <ns20:LsdList>
+              <ns23:description lang="en">Rejection of CC117D - PRESENTATION NOTIFICATION AT OFFICE OF TRANSIT (E_TRA_PRE_NOT)</ns23:description>
+            </ns20:LsdList>
+          </ns19:RDEntry>
+
+        val result = CodeList("BusinessRejectionTypeTra").value
+
+        result.name mustBe "BusinessRejectionTypeTra"
+
+        result.source mustBe RefDataFeed
+
+        result.json(xml) mustBe Seq(
+          Json.obj(
+            "key"        -> "117",
+            "value" -> "Rejection of CC117D - PRESENTATION NOTIFICATION AT OFFICE OF TRANSIT (E_TRA_PRE_NOT)"
+          )
+        )
+      }
+
+      "CountryCodesOptout" in {
+        val xml =
+          <ns19:RDEntry>
+            <ns20:RDEntryStatus>
+              <ns21:state>valid</ns21:state>
+              <ns21:activeFrom>2024-01-17</ns21:activeFrom>
+              <ns21:changeJustification>IM640024</ns21:changeJustification>
+            </ns20:RDEntryStatus>
+            <ns20:dataItem name="CountryCode">CH</ns20:dataItem>
+            <ns20:dataItem name="TccEntryDate">19000101</ns20:dataItem>
+            <ns20:dataItem name="NctsEntryDate">19000101</ns20:dataItem>
+            <ns20:dataItem name="GeoNomenclatureCode">039</ns20:dataItem>
+            <ns20:dataItem name="CountryRegimeCode">TOC</ns20:dataItem>
+            <ns20:LsdList>
+              <ns23:description lang="en">Switzerland</ns23:description>
+            </ns20:LsdList>
+          </ns19:RDEntry>
+
+        val result = CodeList("CountryCodesOptout").value
+
+        result.name mustBe "CountryCodesOptout"
+
+        result.source mustBe RefDataFeed
+
+        result.json(xml) mustBe Seq(
+          Json.obj(
+            "key"        -> "CH",
+            "value" -> "Switzerland"
+          )
+        )
+      }
+
+      "CountryCodesWithAddress" in {
+        val xml =
+          <ns19:RDEntry>
+            <ns20:RDEntryStatus>
+              <ns21:state>valid</ns21:state>
+              <ns21:activeFrom>2024-10-01</ns21:activeFrom>
+              <ns21:changeJustification>IM640024 IM732889</ns21:changeJustification>
+            </ns20:RDEntryStatus>
+            <ns20:dataItem name="CountryCode">AD</ns20:dataItem>
+            <ns20:LsdList>
+              <ns23:description lang="en">Andorra</ns23:description>
+            </ns20:LsdList>
+          </ns19:RDEntry>
+
+        val result = CodeList("CountryCodesWithAddress").value
+
+        result.name mustBe "CountryCodesWithAddress"
+
+        result.source mustBe RefDataFeed
+
+        result.json(xml) mustBe Seq(
+          Json.obj(
+            "key"        -> "AD",
+            "value" -> "Andorra"
+          )
+        )
+      }
+
+      "FunctionErrorCodesTED" in {
+        val xml =
+          <ns19:RDEntry>
+            <ns20:RDEntryStatus>
+              <ns21:state>valid</ns21:state>
+              <ns21:activeFrom>2024-12-11</ns21:activeFrom>
+              <ns21:changeJustification>IM559781 IM169339</ns21:changeJustification>
+            </ns20:RDEntryStatus>
+            <ns20:dataItem name="Code">100</ns20:dataItem>
+            <ns20:LsdList>
+              <ns23:description lang="en">Not satisfactory data quality</ns23:description>
+            </ns20:LsdList>
+          </ns19:RDEntry>
+
+        val result = CodeList("FunctionErrorCodesTED").value
+
+        result.name mustBe "FunctionErrorCodesTED"
+
+        result.source mustBe RefDataFeed
+
+        result.json(xml) mustBe Seq(
+          Json.obj(
+            "key"        -> "100",
+            "value" -> "Not satisfactory data quality"
+          )
+        )
+      }
+
+      "RejectionCodeTransit" in {
+        val xml =
+          <ns19:RDEntry>
+            <ns20:RDEntryStatus>
+              <ns21:state>valid</ns21:state>
+              <ns21:activeFrom>2024-12-11</ns21:activeFrom>
+              <ns21:changeJustification>IM555915 IM743640 IM169339</ns21:changeJustification>
+            </ns20:RDEntryStatus>
+            <ns20:dataItem name="RejectionCodeTransitCode">1</ns20:dataItem>
+            <ns20:LsdList>
+              <ns23:description lang="en">MRN unknown</ns23:description>
+            </ns20:LsdList>
+          </ns19:RDEntry>
+
+        val result = CodeList("RejectionCodeTransit").value
+
+        result.name mustBe "RejectionCodeTransit"
+
+        result.source mustBe RefDataFeed
+
+        result.json(xml) mustBe Seq(
+          Json.obj(
+            "key"        -> "1",
+            "value" -> "MRN unknown"
+          )
+        )
+      }
+
+      "Role" in {
+        val xml =
+          <ns19:RDEntry>
+            <ns20:RDEntryStatus>
+              <ns21:state>valid</ns21:state>
+              <ns21:activeFrom>2024-12-11</ns21:activeFrom>
+              <ns21:changeJustification>IM640024 IM753869 IM169339 IM169339 IM169339</ns21:changeJustification>
+            </ns20:RDEntryStatus>
+            <ns20:dataItem name="Role">ACE</ns20:dataItem>
+            <ns20:LsdList>
+              <ns23:description lang="en">Customs authority responsible for granting the authorisation of authorised consignee for Union transit</ns23:description>
+            </ns20:LsdList>
+          </ns19:RDEntry>
+
+        val result = CodeList("Role").value
+
+        result.name mustBe "Role"
+
+        result.source mustBe RefDataFeed
+
+        result.json(xml) mustBe Seq(
+          Json.obj(
+            "key"        -> "ACE",
+            "value" -> "Customs authority responsible for granting the authorisation of authorised consignee for Union transit"
+          )
+        )
+      }
+
+      "XmlErrorCodes" in {
+        val xml =
+          <ns19:RDEntry>
+            <ns20:RDEntryStatus>
+              <ns21:state>valid</ns21:state>
+              <ns21:activeFrom>2024-09-30</ns21:activeFrom>
+              <ns21:changeJustification>IM686707 IM743640 IM745431 IM169339 IM169339 IM169339</ns21:changeJustification>
+            </ns20:RDEntryStatus>
+            <ns20:dataItem name="XmlErrorCodesCode">12</ns20:dataItem>
+            <ns20:LsdList>
+              <ns23:description lang="en">Incorrect enumeration</ns23:description>
+            </ns20:LsdList>
+          </ns19:RDEntry>
+
+        val result = CodeList("XmlErrorCodes").value
+
+        result.name mustBe "XmlErrorCodes"
+
+        result.source mustBe RefDataFeed
+
+        result.json(xml) mustBe Seq(
+          Json.obj(
+            "key"        -> "12",
+            "value" -> "Incorrect enumeration"
+          )
+        )
+      }
     }
 
     "when invalid code list" in {

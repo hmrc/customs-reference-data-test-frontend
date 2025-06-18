@@ -17,8 +17,8 @@
 package models
 
 import models.ApiDataSource.{ColDataFeed, RefDataFeed}
-import play.api.libs.json.{JsArray, JsObject, Json}
 import play.api.libs.json.Json.JsValueWrapper
+import play.api.libs.json.{JsArray, JsObject, Json}
 
 import scala.xml.{MetaData, Node}
 
@@ -393,7 +393,65 @@ object CodeList {
   }
 
   case class Unit(name: String) extends StandardCodeList {
-    override val codeName: String      = "Unit"
+    override val codeName: String = "Unit"
+    override val source: ApiDataSource = RefDataFeed
+  }
+
+  sealed trait P6CodeList extends StandardCodeList {
+    override val codeKey: String = "key"
+    override val descriptionKey: String = "value"
+
+    override def fields(entry: Node): Seq[Seq[(String, Option[JsValueWrapper])]] =
+      Seq(
+        Seq(
+          codeKey -> getDataItem(entry, codeName),
+          descriptionKey -> getAttribute(entry, "description")(_("lang").map(_.text).contains("en"))
+        )
+      )
+  }
+
+  case class AdditionalInformationCodeSubset(name: String) extends P6CodeList {
+    override val codeName: String = "Code"
+    override val source: ApiDataSource = RefDataFeed
+  }
+  
+  case class BusinessRejectionTypeTED2Dep(name: String) extends P6CodeList {
+    override val codeName: String = "BusinessRejectionTypeTED2DepCode"
+    override val source: ApiDataSource = RefDataFeed
+  }
+
+  case class BusinessRejectionTypeTra(name: String) extends P6CodeList {
+    override val codeName: String = "BusinessRejectionTypeTraCode"
+    override val source: ApiDataSource = RefDataFeed
+  }
+
+  case class CountryCodesOptout(name: String) extends P6CodeList {
+    override val codeName: String = "CountryCode"
+    override val source: ApiDataSource = RefDataFeed
+  }
+
+  case class CountryCodesWithAddress(name: String) extends P6CodeList {
+    override val codeName: String = "CountryCode"
+    override val source: ApiDataSource = RefDataFeed
+  }
+
+  case class FunctionErrorCodesTED(name: String) extends P6CodeList {
+    override val codeName: String = "Code"
+    override val source: ApiDataSource = RefDataFeed
+  }
+
+  case class RejectionCodeTransit(name: String) extends P6CodeList {
+    override val codeName: String = "RejectionCodeTransitCode"
+    override val source: ApiDataSource = RefDataFeed
+  }
+
+  case class Role(name: String) extends P6CodeList {
+    override val codeName: String = "Role"
+    override val source: ApiDataSource = RefDataFeed
+  }
+
+  case class XmlErrorCodes(name: String) extends P6CodeList {
+    override val codeName: String = "XmlErrorCodesCode"
     override val source: ApiDataSource = RefDataFeed
   }
 
@@ -455,6 +513,15 @@ object CodeList {
       case "UnDangerousGoodsCode"                         => Some(UnDangerousGoodsCode(name))
       case "UnLocodeExtended"                             => Some(UnLocodeExtended(name))
       case "Unit"                                         => Some(Unit(name))
+      case "AdditionalInformationCodeSubset"              => Some(AdditionalInformationCodeSubset(name))
+      case "BusinessRejectionTypeTED2Dep"                 => Some(BusinessRejectionTypeTED2Dep(name))
+      case "BusinessRejectionTypeTra"                     => Some(BusinessRejectionTypeTra(name))
+      case "CountryCodesOptout"                           => Some(CountryCodesOptout(name))
+      case "CountryCodesWithAddress"                      => Some(CountryCodesWithAddress(name))
+      case "FunctionErrorCodesTED"                        => Some(FunctionErrorCodesTED(name))
+      case "RejectionCodeTransit"                         => Some(RejectionCodeTransit(name))
+      case "Role"                                         => Some(Role(name))
+      case "XmlErrorCodes"                                => Some(XmlErrorCodes(name))
       case _                                              => None
     }
 }
