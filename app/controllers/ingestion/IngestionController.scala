@@ -21,25 +21,15 @@ import play.api.mvc.{Action, MessagesControllerComponents}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import uk.gov.hmrc.play.http.HeaderCarrierConverter
-import utils.XmlToJsonConverter
 
 import scala.concurrent.{ExecutionContext, Future}
-import scala.xml.NodeSeq
 
-abstract class IngestionController[T <: XmlToJsonConverter](
-  mcc: MessagesControllerComponents,
-  converter: T
+abstract class IngestionController(
+  mcc: MessagesControllerComponents
 )(implicit ec: ExecutionContext)
     extends FrontendController(mcc) {
 
   def ingest(body: JsValue)(implicit hc: HeaderCarrier): Future[HttpResponse]
-
-  def convert(): Action[NodeSeq] =
-    Action(parse.xml) {
-      request =>
-        val json = converter.convert(request.body)
-        Ok(json)
-    }
 
   def post(): Action[JsValue] =
     Action(parse.json).async {

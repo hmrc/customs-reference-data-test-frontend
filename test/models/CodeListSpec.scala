@@ -1806,7 +1806,7 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         result.json(xml) mustBe Seq(
           Json.obj(
-            "key"        -> "A00",
+            "key"   -> "A00",
             "value" -> "Amendment is not possible"
           )
         )
@@ -1834,7 +1834,7 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         result.json(xml) mustBe Seq(
           Json.obj(
-            "key"        -> "014",
+            "key"   -> "014",
             "value" -> "Rejection of CD014D - DECLARATION INVALIDATION REQUEST ENS (C_DEC_INV_ENS)"
           )
         )
@@ -1862,7 +1862,7 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         result.json(xml) mustBe Seq(
           Json.obj(
-            "key"        -> "117",
+            "key"   -> "117",
             "value" -> "Rejection of CC117D - PRESENTATION NOTIFICATION AT OFFICE OF TRANSIT (E_TRA_PRE_NOT)"
           )
         )
@@ -1894,7 +1894,7 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         result.json(xml) mustBe Seq(
           Json.obj(
-            "key"        -> "CH",
+            "key"   -> "CH",
             "value" -> "Switzerland"
           )
         )
@@ -1922,7 +1922,7 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         result.json(xml) mustBe Seq(
           Json.obj(
-            "key"        -> "AD",
+            "key"   -> "AD",
             "value" -> "Andorra"
           )
         )
@@ -1950,7 +1950,7 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         result.json(xml) mustBe Seq(
           Json.obj(
-            "key"        -> "100",
+            "key"   -> "100",
             "value" -> "Not satisfactory data quality"
           )
         )
@@ -1978,7 +1978,7 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         result.json(xml) mustBe Seq(
           Json.obj(
-            "key"        -> "1",
+            "key"   -> "1",
             "value" -> "MRN unknown"
           )
         )
@@ -2006,7 +2006,7 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         result.json(xml) mustBe Seq(
           Json.obj(
-            "key"        -> "ACE",
+            "key"   -> "ACE",
             "value" -> "Customs authority responsible for granting the authorisation of authorised consignee for Union transit"
           )
         )
@@ -2034,7 +2034,7 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         result.json(xml) mustBe Seq(
           Json.obj(
-            "key"        -> "12",
+            "key"   -> "12",
             "value" -> "Incorrect enumeration"
           )
         )
