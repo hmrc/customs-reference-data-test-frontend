@@ -70,7 +70,7 @@ class ReferenceDataListControllerSpec extends SpecBase with ScalaCheckPropertyCh
 
         val result = route(app, fakeRequest).value
 
-        status(result) mustBe ACCEPTED
+        status(result) mustEqual ACCEPTED
       }
     }
 
@@ -82,7 +82,7 @@ class ReferenceDataListControllerSpec extends SpecBase with ScalaCheckPropertyCh
 
         val result = route(app, fakeRequest).value
 
-        status(result) mustBe BAD_REQUEST
+        status(result) mustEqual BAD_REQUEST
       }
     }
 
@@ -94,7 +94,7 @@ class ReferenceDataListControllerSpec extends SpecBase with ScalaCheckPropertyCh
 
         val result = route(app, fakeRequest).value
 
-        status(result) mustBe INTERNAL_SERVER_ERROR
+        status(result) mustEqual INTERNAL_SERVER_ERROR
       }
     }
   }

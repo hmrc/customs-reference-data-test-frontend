@@ -57,7 +57,7 @@ class CustomsReferenceDataConnectorSpec
 
         val result: Future[HttpResponse] = connector.postReferenceDataList(body)
 
-        result.futureValue.status mustBe 202
+        result.futureValue.status mustEqual 202
       }
     }
 
@@ -75,7 +75,7 @@ class CustomsReferenceDataConnectorSpec
 
         val result: Future[HttpResponse] = connector.postCustomsOfficeLists(body)
 
-        result.futureValue.status mustBe 202
+        result.futureValue.status mustEqual 202
       }
     }
 
@@ -94,7 +94,7 @@ class CustomsReferenceDataConnectorSpec
 
           val result: Future[HttpResponse] = connector.getList(listName, Map.empty)
 
-          result.futureValue.status mustBe 200
+          result.futureValue.status mustEqual 200
         }
         
         "with a query parameter" in {
@@ -108,7 +108,7 @@ class CustomsReferenceDataConnectorSpec
 
           val result: Future[HttpResponse] = connector.getList(listName, Map("country" -> Seq("GB")))
 
-          result.futureValue.status mustBe 200
+          result.futureValue.status mustEqual 200
         }
         
         "with multiple query parameters" in {
@@ -122,7 +122,7 @@ class CustomsReferenceDataConnectorSpec
 
           val result: Future[HttpResponse] = connector.getList(listName, Map("country" -> Seq("GB"), "role" -> Seq("TRA")))
 
-          result.futureValue.status mustBe 200
+          result.futureValue.status mustEqual 200
         }
         
         "with multiple queries on the same parameter" in {
@@ -136,7 +136,7 @@ class CustomsReferenceDataConnectorSpec
 
           val result: Future[HttpResponse] = connector.getList(listName, Map("country" -> Seq("GB", "XI")))
 
-          result.futureValue.status mustBe 200
+          result.futureValue.status mustEqual 200
         }
       }
     }

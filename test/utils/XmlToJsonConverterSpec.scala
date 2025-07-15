@@ -205,7 +205,7 @@ class XmlToJsonConverterSpec extends SpecBase {
 
         val result = converter.convert(xml)
 
-        result mustBe Json.parse(s"""
+        result mustEqual Json.parse(s"""
             |{
             |  "messageInformation" : {
             |    "messageID" : "$uuid",
@@ -375,7 +375,7 @@ class XmlToJsonConverterSpec extends SpecBase {
 
         val result = converter.convert(xml)
 
-        result mustBe Json.parse(s"""
+        result mustEqual Json.parse(s"""
             |{
             |  "messageInformation" : {
             |    "messageID" : "$uuid",
@@ -493,7 +493,7 @@ class XmlToJsonConverterSpec extends SpecBase {
 
         val result = converter.convert(xml, "AdditionalInformation")
 
-        result mustBe Json.parse(s"""
+        result mustEqual Json.parse(s"""
             |[
             |  {
             |    "state" : "valid",
