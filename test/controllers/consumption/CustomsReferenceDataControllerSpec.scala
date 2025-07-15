@@ -71,7 +71,7 @@ class CustomsReferenceDataControllerSpec extends SpecBase with ScalaCheckPropert
 
           val headerCarrierCaptor: ArgumentCaptor[HeaderCarrier] = ArgumentCaptor.forClass(classOf[HeaderCarrier])
           verify(mockConnector).getList(eqTo(listName), eqTo(Map.empty))(any(), headerCarrierCaptor.capture())
-          headerCarrierCaptor.getValue.authorization.value.value mustBe bearerToken
+          headerCarrierCaptor.getValue.authorization.value.value mustEqual bearerToken
         }
 
         "with query parameter" in {
@@ -93,7 +93,7 @@ class CustomsReferenceDataControllerSpec extends SpecBase with ScalaCheckPropert
 
           val headerCarrierCaptor: ArgumentCaptor[HeaderCarrier] = ArgumentCaptor.forClass(classOf[HeaderCarrier])
           verify(mockConnector).getList(eqTo(listName), eqTo(Map("countryId" -> Seq("GB"))))(any(), headerCarrierCaptor.capture())
-          headerCarrierCaptor.getValue.authorization.value.value mustBe bearerToken
+          headerCarrierCaptor.getValue.authorization.value.value mustEqual bearerToken
         }
       }
 
@@ -116,7 +116,7 @@ class CustomsReferenceDataControllerSpec extends SpecBase with ScalaCheckPropert
 
             val headerCarrierCaptor: ArgumentCaptor[HeaderCarrier] = ArgumentCaptor.forClass(classOf[HeaderCarrier])
             verify(mockConnector).getList(eqTo(listName), eqTo(Map.empty))(any(), headerCarrierCaptor.capture())
-            headerCarrierCaptor.getValue.authorization.value.value mustBe bearerToken
+            headerCarrierCaptor.getValue.authorization.value.value mustEqual bearerToken
         }
       }
 
@@ -135,7 +135,7 @@ class CustomsReferenceDataControllerSpec extends SpecBase with ScalaCheckPropert
 
         val headerCarrierCaptor: ArgumentCaptor[HeaderCarrier] = ArgumentCaptor.forClass(classOf[HeaderCarrier])
         verify(mockConnector).getList(eqTo(listName), eqTo(Map.empty))(any(), headerCarrierCaptor.capture())
-        headerCarrierCaptor.getValue.authorization.value.value mustBe bearerToken
+        headerCarrierCaptor.getValue.authorization.value.value mustEqual bearerToken
       }
     }
   }

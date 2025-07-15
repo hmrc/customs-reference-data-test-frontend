@@ -41,11 +41,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("AdditionalInformation").value
 
-        result.name mustBe "AdditionalInformation"
+        result.name mustEqual "AdditionalInformation"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-06-20",
@@ -70,11 +70,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("AdditionalReference").value
 
-        result.name mustBe "AdditionalReference"
+        result.name mustEqual "AdditionalReference"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"        -> "valid",
             "activeFrom"   -> "2024-01-18",
@@ -99,11 +99,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("AdditionalSupplyChainActorRoleCode").value
 
-        result.name mustBe "AdditionalSupplyChainActorRoleCode"
+        result.name mustEqual "AdditionalSupplyChainActorRoleCode"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-07-09",
@@ -128,11 +128,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("AuthorisationTypeDeparture").value
 
-        result.name mustBe "AuthorisationTypeDeparture"
+        result.name mustEqual "AuthorisationTypeDeparture"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-07-09",
@@ -157,11 +157,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("AuthorisationTypeDestination").value
 
-        result.name mustBe "AuthorisationTypeDestination"
+        result.name mustEqual "AuthorisationTypeDestination"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-07-09",
@@ -186,11 +186,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("BusinessRejectionTypeDepExp").value
 
-        result.name mustBe "BusinessRejectionTypeDepExp"
+        result.name mustEqual "BusinessRejectionTypeDepExp"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-06-20",
@@ -215,11 +215,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("CUSCode").value
 
-        result.name mustBe "CUSCode"
+        result.name mustEqual "CUSCode"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"      -> "valid",
             "activeFrom" -> "2021-02-22",
@@ -243,11 +243,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("ControlType").value
 
-        result.name mustBe "ControlType"
+        result.name mustEqual "ControlType"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-07-09",
@@ -272,11 +272,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("CountryAddressPostcodeBased").value
 
-        result.name mustBe "CountryAddressPostcodeBased"
+        result.name mustEqual "CountryAddressPostcodeBased"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-02-21",
@@ -301,11 +301,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("CountryAddressPostcodeOnly").value
 
-        result.name mustBe "CountryAddressPostcodeOnly"
+        result.name mustEqual "CountryAddressPostcodeOnly"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-02-21",
@@ -330,11 +330,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("CountryCodesCTC").value
 
-        result.name mustBe "CountryCodesCTC"
+        result.name mustEqual "CountryCodesCTC"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-02-21",
@@ -363,11 +363,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("CountryCodesCommonTransit").value
 
-        result.name mustBe "CountryCodesCommonTransit"
+        result.name mustEqual "CountryCodesCommonTransit"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-02-21",
@@ -396,11 +396,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("CountryCodesCommunity").value
 
-        result.name mustBe "CountryCodesCommunity"
+        result.name mustEqual "CountryCodesCommunity"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-02-21",
@@ -425,11 +425,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("CountryCodesForAddress").value
 
-        result.name mustBe "CountryCodesForAddress"
+        result.name mustEqual "CountryCodesForAddress"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-02-21",
@@ -458,11 +458,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("CountryCodesFullList").value
 
-        result.name mustBe "CountryCodesFullList"
+        result.name mustEqual "CountryCodesFullList"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-02-21",
@@ -487,11 +487,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("CountryCustomsSecurityAgreementArea").value
 
-        result.name mustBe "CountryCustomsSecurityAgreementArea"
+        result.name mustEqual "CountryCustomsSecurityAgreementArea"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-02-21",
@@ -513,11 +513,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("CountryWithoutZip").value
 
-        result.name mustBe "CountryWithoutZip"
+        result.name mustEqual "CountryWithoutZip"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"      -> "valid",
             "activeFrom" -> "2023-06-07",
@@ -542,11 +542,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("CurrencyCodes").value
 
-        result.name mustBe "CurrencyCodes"
+        result.name mustEqual "CurrencyCodes"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-02-21",
@@ -648,11 +648,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("CustomsOffices").value
 
-        result.name mustBe "customsOffices"
+        result.name mustEqual "customsOffices"
 
-        result.source mustBe ColDataFeed
+        result.source mustEqual ColDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"        -> "valid",
             "activeFrom"   -> "2019-01-01",
@@ -722,11 +722,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("DeclarationType").value
 
-        result.name mustBe "DeclarationType"
+        result.name mustEqual "DeclarationType"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-06-20",
@@ -751,11 +751,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("DeclarationTypeAdditional").value
 
-        result.name mustBe "DeclarationTypeAdditional"
+        result.name mustEqual "DeclarationTypeAdditional"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-07-09",
@@ -780,11 +780,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("DeclarationTypeItemLevel").value
 
-        result.name mustBe "DeclarationTypeItemLevel"
+        result.name mustEqual "DeclarationTypeItemLevel"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-06-20",
@@ -809,11 +809,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("DeclarationTypeSecurity").value
 
-        result.name mustBe "DeclarationTypeSecurity"
+        result.name mustEqual "DeclarationTypeSecurity"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-03-18",
@@ -838,11 +838,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("DocumentTypeExcise").value
 
-        result.name mustBe "DocumentTypeExcise"
+        result.name mustEqual "DocumentTypeExcise"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-03-18",
@@ -868,11 +868,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("FunctionalErrorCodesIeCA").value
 
-        result.name mustBe "FunctionalErrorCodesIeCA"
+        result.name mustEqual "FunctionalErrorCodesIeCA"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-03-18",
@@ -897,11 +897,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("GuaranteeType").value
 
-        result.name mustBe "GuaranteeType"
+        result.name mustEqual "GuaranteeType"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-07-09",
@@ -926,11 +926,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("GuaranteeTypeWithGRN").value
 
-        result.name mustBe "GuaranteeTypeWithGRN"
+        result.name mustEqual "GuaranteeTypeWithGRN"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-07-09",
@@ -955,11 +955,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("GuaranteeTypeEUNonTIR").value
 
-        result.name mustBe "GuaranteeTypeEUNonTIR"
+        result.name mustEqual "GuaranteeTypeEUNonTIR"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-07-09",
@@ -984,11 +984,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("GuaranteeTypeCTC").value
 
-        result.name mustBe "GuaranteeTypeCTC"
+        result.name mustEqual "GuaranteeTypeCTC"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-07-09",
@@ -1013,11 +1013,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("GuaranteeTypeWithReference").value
 
-        result.name mustBe "GuaranteeTypeWithReference"
+        result.name mustEqual "GuaranteeTypeWithReference"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-07-09",
@@ -1042,11 +1042,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("HScode").value
 
-        result.name mustBe "HScode"
+        result.name mustEqual "HScode"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"      -> "valid",
             "activeFrom" -> "2023-05-20",
@@ -1070,11 +1070,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("IncidentCode").value
 
-        result.name mustBe "IncidentCode"
+        result.name mustEqual "IncidentCode"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-05-21",
@@ -1099,11 +1099,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("InvalidGuaranteeReason").value
 
-        result.name mustBe "InvalidGuaranteeReason"
+        result.name mustEqual "InvalidGuaranteeReason"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-06-20",
@@ -1128,11 +1128,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("KindOfPackages").value
 
-        result.name mustBe "KindOfPackages"
+        result.name mustEqual "KindOfPackages"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-02-21",
@@ -1157,11 +1157,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("KindOfPackagesBulk").value
 
-        result.name mustBe "KindOfPackagesBulk"
+        result.name mustEqual "KindOfPackagesBulk"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-02-21",
@@ -1186,11 +1186,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("KindOfPackagesUnpacked").value
 
-        result.name mustBe "KindOfPackagesUnpacked"
+        result.name mustEqual "KindOfPackagesUnpacked"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-02-21",
@@ -1215,11 +1215,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("Nationality").value
 
-        result.name mustBe "Nationality"
+        result.name mustEqual "Nationality"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-02-21",
@@ -1244,11 +1244,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("PreviousDocumentExportType").value
 
-        result.name mustBe "PreviousDocumentExportType"
+        result.name mustEqual "PreviousDocumentExportType"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-03-18",
@@ -1273,11 +1273,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("PreviousDocumentType").value
 
-        result.name mustBe "PreviousDocumentType"
+        result.name mustEqual "PreviousDocumentType"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-03-18",
@@ -1302,11 +1302,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("PreviousDocumentUnionGoods").value
 
-        result.name mustBe "PreviousDocumentUnionGoods"
+        result.name mustEqual "PreviousDocumentUnionGoods"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-03-18",
@@ -1331,11 +1331,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("QualifierOfIdentificationIncident").value
 
-        result.name mustBe "QualifierOfIdentificationIncident"
+        result.name mustEqual "QualifierOfIdentificationIncident"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-03-18",
@@ -1360,11 +1360,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("QualifierOfTheIdentification").value
 
-        result.name mustBe "QualifierOfTheIdentification"
+        result.name mustEqual "QualifierOfTheIdentification"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-03-18",
@@ -1389,11 +1389,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("RejectionCodeDepartureExport").value
 
-        result.name mustBe "RejectionCodeDepartureExport"
+        result.name mustEqual "RejectionCodeDepartureExport"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-06-20",
@@ -1418,11 +1418,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("RepresentativeStatusCode").value
 
-        result.name mustBe "RepresentativeStatusCode"
+        result.name mustEqual "RepresentativeStatusCode"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-03-08",
@@ -1448,11 +1448,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("RequestedDocumentType").value
 
-        result.name mustBe "RequestedDocumentType"
+        result.name mustEqual "RequestedDocumentType"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2022-09-07",
@@ -1477,11 +1477,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("SpecificCircumstanceIndicatorCode").value
 
-        result.name mustBe "SpecificCircumstanceIndicatorCode"
+        result.name mustEqual "SpecificCircumstanceIndicatorCode"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-03-18",
@@ -1506,11 +1506,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("SupportingDocumentType").value
 
-        result.name mustBe "SupportingDocumentType"
+        result.name mustEqual "SupportingDocumentType"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-07-09",
@@ -1535,11 +1535,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("TransportChargesMethodOfPayment").value
 
-        result.name mustBe "TransportChargesMethodOfPayment"
+        result.name mustEqual "TransportChargesMethodOfPayment"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-06-27",
@@ -1564,11 +1564,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("TransportDocumentType").value
 
-        result.name mustBe "TransportDocumentType"
+        result.name mustEqual "TransportDocumentType"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-05-29",
@@ -1593,11 +1593,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("TransportModeCode").value
 
-        result.name mustBe "TransportModeCode"
+        result.name mustEqual "TransportModeCode"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-06-20",
@@ -1622,11 +1622,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("TypeOfIdentificationOfMeansOfTransport").value
 
-        result.name mustBe "TypeOfIdentificationOfMeansOfTransport"
+        result.name mustEqual "TypeOfIdentificationOfMeansOfTransport"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-07-09",
@@ -1651,11 +1651,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("TypeOfIdentificationofMeansOfTransportActive").value
 
-        result.name mustBe "TypeOfIdentificationofMeansOfTransportActive"
+        result.name mustEqual "TypeOfIdentificationofMeansOfTransportActive"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-05-29",
@@ -1680,11 +1680,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("TypeOfLocation").value
 
-        result.name mustBe "TypeOfLocation"
+        result.name mustEqual "TypeOfLocation"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-03-18",
@@ -1709,11 +1709,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("UnDangerousGoodsCode").value
 
-        result.name mustBe "UnDangerousGoodsCode"
+        result.name mustEqual "UnDangerousGoodsCode"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-02-21",
@@ -1741,11 +1741,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("UnLocodeExtended").value
 
-        result.name mustBe "UnLocodeExtended"
+        result.name mustEqual "UnLocodeExtended"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"                -> "valid",
             "activeFrom"           -> "2023-04-13",
@@ -1770,11 +1770,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("Unit").value
 
-        result.name mustBe "Unit"
+        result.name mustEqual "Unit"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "state"       -> "valid",
             "activeFrom"  -> "2024-07-09",
@@ -1800,11 +1800,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("AdditionalInformationCodeSubset").value
 
-        result.name mustBe "AdditionalInformationCodeSubset"
+        result.name mustEqual "AdditionalInformationCodeSubset"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "key"   -> "A00",
             "value" -> "Amendment is not possible"
@@ -1828,11 +1828,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("BusinessRejectionTypeTED2Dep").value
 
-        result.name mustBe "BusinessRejectionTypeTED2Dep"
+        result.name mustEqual "BusinessRejectionTypeTED2Dep"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "key"   -> "014",
             "value" -> "Rejection of CD014D - DECLARATION INVALIDATION REQUEST ENS (C_DEC_INV_ENS)"
@@ -1856,11 +1856,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("BusinessRejectionTypeTra").value
 
-        result.name mustBe "BusinessRejectionTypeTra"
+        result.name mustEqual "BusinessRejectionTypeTra"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "key"   -> "117",
             "value" -> "Rejection of CC117D - PRESENTATION NOTIFICATION AT OFFICE OF TRANSIT (E_TRA_PRE_NOT)"
@@ -1888,11 +1888,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("CountryCodesOptout").value
 
-        result.name mustBe "CountryCodesOptout"
+        result.name mustEqual "CountryCodesOptout"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "key"   -> "CH",
             "value" -> "Switzerland"
@@ -1916,11 +1916,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("CountryCodesWithAddress").value
 
-        result.name mustBe "CountryCodesWithAddress"
+        result.name mustEqual "CountryCodesWithAddress"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "key"   -> "AD",
             "value" -> "Andorra"
@@ -1944,11 +1944,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("FunctionErrorCodesTED").value
 
-        result.name mustBe "FunctionErrorCodesTED"
+        result.name mustEqual "FunctionErrorCodesTED"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "key"   -> "100",
             "value" -> "Not satisfactory data quality"
@@ -1972,11 +1972,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("RejectionCodeTransit").value
 
-        result.name mustBe "RejectionCodeTransit"
+        result.name mustEqual "RejectionCodeTransit"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "key"   -> "1",
             "value" -> "MRN unknown"
@@ -2000,11 +2000,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("Role").value
 
-        result.name mustBe "Role"
+        result.name mustEqual "Role"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "key"   -> "ACE",
             "value" -> "Customs authority responsible for granting the authorisation of authorised consignee for Union transit"
@@ -2028,11 +2028,11 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
 
         val result = CodeList("XmlErrorCodes").value
 
-        result.name mustBe "XmlErrorCodes"
+        result.name mustEqual "XmlErrorCodes"
 
-        result.source mustBe RefDataFeed
+        result.source mustEqual RefDataFeed
 
-        result.json(xml) mustBe Seq(
+        result.json(xml) mustEqual Seq(
           Json.obj(
             "key"   -> "12",
             "value" -> "Incorrect enumeration"
@@ -2045,7 +2045,7 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
       forAll(Gen.alphaNumStr) {
         str =>
           val result = CodeList(str)
-          result mustBe None
+          result must not be defined
       }
     }
   }
