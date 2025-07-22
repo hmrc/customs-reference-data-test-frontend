@@ -51,10 +51,22 @@ This is a service for proxying requests to the protected customs-reference-data 
 
 ### GET /reference-data-list/:listName
 * Retrieves data from customs-reference-data for a given list name (list names can be found at https://github.com/hmrc/customs-reference-data/tree/main/conf/resources)
+* Headers:
+  * Accept:
+    * `application/vnd.hmrc.1.0+json` to retrieve data from customs-reference-data database
+    * `application/vnd.hmrc.2.0+json` to retrieve data from crdl-cache database
 * Response:
   * 200 - Data successfully retrieved
   * 404 - No data found for given list name
   * 500 - Something else went wrong
+
+### POST /compare/customs-office-lists
+* Attach two files as a multipart form:
+  * v1 - This is data that is retrieved when calling `GET /reference-data-list/:listName` with Accept header `application/vnd.hmrc.1.0+json`
+  * v2 - This is data that is retrieved when calling `GET /reference-data-list/:listName` with Accept header `application/vnd.hmrc.2.0+json`
+* Response:
+  * 200 - Files have been successfully compared and shows the offices that have differences
+  * 400 - Files did not have keys `v1` and `v2` or were improperly formatted
 
 ### License
 

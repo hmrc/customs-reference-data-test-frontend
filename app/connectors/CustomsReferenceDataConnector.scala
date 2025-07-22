@@ -26,14 +26,14 @@ import play.api.libs.ws.JsonBodyWritables._
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class CustomsReferenceDataConnector @Inject()(http: HttpClientV2, config: AppConfig) {
+class CustomsReferenceDataConnector @Inject() (http: HttpClientV2, config: AppConfig) {
 
   def postReferenceDataList(body: JsValue)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
     val url = url"${config.customsReferenceDataUrl}/reference-data-lists"
     http
       .post(url)
       .setHeader(
-        "Accept" -> "application/vnd.hmrc.2.0+json",
+        "Accept"       -> "application/vnd.hmrc.2.0+json",
         "Content-Type" -> "application/json"
       )
       .withBody(body)
@@ -45,7 +45,7 @@ class CustomsReferenceDataConnector @Inject()(http: HttpClientV2, config: AppCon
     http
       .post(url)
       .setHeader(
-        "Accept" -> "application/vnd.hmrc.2.0+json",
+        "Accept"       -> "application/vnd.hmrc.2.0+json",
         "Content-Type" -> "application/json"
       )
       .withBody(body)
@@ -54,14 +54,15 @@ class CustomsReferenceDataConnector @Inject()(http: HttpClientV2, config: AppCon
 
   def getList(listName: String, queryString: Map[String, Seq[String]])(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
     val queryParameters = queryString.toSeq.flatMap {
-      case (key, values) => values.map {
-        value => key -> value
-      }
+      case (key, values) =>
+        values.map {
+          value => key -> value
+        }
     }
     val url = url"${config.customsReferenceDataUrl}/lists/$listName?$queryParameters"
     http
       .get(url)
-      .setHeader(hc.headers(Seq("Accept")) *)
+      .setHeader(hc.headers(Seq("Accept"))*)
       .execute[HttpResponse]
   }
 

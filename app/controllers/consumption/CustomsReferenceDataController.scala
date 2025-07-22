@@ -25,10 +25,11 @@ import uk.gov.hmrc.play.http.HeaderCarrierConverter
 import javax.inject.Inject
 import scala.concurrent.ExecutionContext
 
-class CustomsReferenceDataController @Inject()(
+class CustomsReferenceDataController @Inject() (
   mcc: MessagesControllerComponents,
   connector: CustomsReferenceDataConnector
-)(implicit val ec: ExecutionContext) extends FrontendController(mcc) {
+)(implicit val ec: ExecutionContext)
+    extends FrontendController(mcc) {
 
   def get(listName: String): Action[AnyContent] =
     Action.async {

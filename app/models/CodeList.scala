@@ -37,7 +37,7 @@ sealed trait CodeList {
         }
       }
       .map {
-        fields => Json.obj(fields *)
+        fields => Json.obj(fields*)
       }
 
   def fields(entry: Node): Seq[Seq[(String, Option[JsValueWrapper])]] =
@@ -49,7 +49,11 @@ sealed trait CodeList {
     )
 
   protected def getAttribute(entry: Node, key: String)(f: MetaData => Boolean): Option[JsValueWrapper] =
-    (entry \\ key).find(x => f(x.attributes)).map(_.text)
+    (entry \\ key)
+      .find(
+        x => f(x.attributes)
+      )
+      .map(_.text)
 
   protected def getDataItem(entry: Node, key: String): Option[JsValueWrapper] =
     getAttribute(entry, "dataItem")(_("name").map(_.text).contains(key))
@@ -179,12 +183,12 @@ object CodeList {
         case (acc, office) =>
           acc ++ super.fields(entry).map {
             _ ++ Seq(
-              "languageCode"  -> getDataItem(office, "LanguageCode"),
-              "name"          -> getDataItem(office, "CustomsOfficeUsualName"),
-              "phoneNumber"   -> getDataItem(entry, "PhoneNumber"),
-              "eMailAddress"  -> getDataItem(entry, "EMailAddress"),
-              "id"            -> getDataItem(entry, "ReferenceNumber"),
-              "countryId"     -> getDataItem(entry, "CountryCode"),
+              "languageCode" -> getDataItem(office, "LanguageCode"),
+              "name"         -> getDataItem(office, "CustomsOfficeUsualName"),
+              "phoneNumber"  -> getDataItem(entry, "PhoneNumber"),
+              "eMailAddress" -> getDataItem(entry, "EMailAddress"),
+              "id"           -> getDataItem(entry, "ReferenceNumber"),
+              "countryId"    -> getDataItem(entry, "CountryCode"),
               "roles" -> {
                 val nodes = (entry \\ "dataItem").filter(_.attributes("name").map(_.text).contains("Role"))
                 val array = nodes.map(_.text).distinct.foldLeft(JsArray()) {
@@ -393,65 +397,65 @@ object CodeList {
   }
 
   case class Unit(name: String) extends StandardCodeList {
-    override val codeName: String = "Unit"
+    override val codeName: String      = "Unit"
     override val source: ApiDataSource = RefDataFeed
   }
 
   sealed trait P6CodeList extends StandardCodeList {
-    override val codeKey: String = "key"
+    override val codeKey: String        = "key"
     override val descriptionKey: String = "value"
 
     override def fields(entry: Node): Seq[Seq[(String, Option[JsValueWrapper])]] =
       Seq(
         Seq(
-          codeKey -> getDataItem(entry, codeName),
+          codeKey        -> getDataItem(entry, codeName),
           descriptionKey -> getAttribute(entry, "description")(_("lang").map(_.text).contains("en"))
         )
       )
   }
 
   case class AdditionalInformationCodeSubset(name: String) extends P6CodeList {
-    override val codeName: String = "Code"
+    override val codeName: String      = "Code"
     override val source: ApiDataSource = RefDataFeed
   }
-  
+
   case class BusinessRejectionTypeTED2Dep(name: String) extends P6CodeList {
-    override val codeName: String = "BusinessRejectionTypeTED2DepCode"
+    override val codeName: String      = "BusinessRejectionTypeTED2DepCode"
     override val source: ApiDataSource = RefDataFeed
   }
 
   case class BusinessRejectionTypeTra(name: String) extends P6CodeList {
-    override val codeName: String = "BusinessRejectionTypeTraCode"
+    override val codeName: String      = "BusinessRejectionTypeTraCode"
     override val source: ApiDataSource = RefDataFeed
   }
 
   case class CountryCodesOptout(name: String) extends P6CodeList {
-    override val codeName: String = "CountryCode"
+    override val codeName: String      = "CountryCode"
     override val source: ApiDataSource = RefDataFeed
   }
 
   case class CountryCodesWithAddress(name: String) extends P6CodeList {
-    override val codeName: String = "CountryCode"
+    override val codeName: String      = "CountryCode"
     override val source: ApiDataSource = RefDataFeed
   }
 
   case class FunctionErrorCodesTED(name: String) extends P6CodeList {
-    override val codeName: String = "Code"
+    override val codeName: String      = "Code"
     override val source: ApiDataSource = RefDataFeed
   }
 
   case class RejectionCodeTransit(name: String) extends P6CodeList {
-    override val codeName: String = "RejectionCodeTransitCode"
+    override val codeName: String      = "RejectionCodeTransitCode"
     override val source: ApiDataSource = RefDataFeed
   }
 
   case class Role(name: String) extends P6CodeList {
-    override val codeName: String = "Role"
+    override val codeName: String      = "Role"
     override val source: ApiDataSource = RefDataFeed
   }
 
   case class XmlErrorCodes(name: String) extends P6CodeList {
-    override val codeName: String = "XmlErrorCodesCode"
+    override val codeName: String      = "XmlErrorCodesCode"
     override val source: ApiDataSource = RefDataFeed
   }
 

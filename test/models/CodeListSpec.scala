@@ -659,7 +659,7 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
             "languageCode" -> "EN",
             "name"         -> "DCNJ PORTA",
             "phoneNumber"  -> "+ (376) 755125",
-            "eMailAddress"  -> "duana.pasdelacasa@andorra.ad",
+            "eMailAddress" -> "duana.pasdelacasa@andorra.ad",
             "id"           -> "AD000002",
             "countryId"    -> "AD",
             "roles" -> JsArray(
@@ -676,7 +676,7 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
             "languageCode" -> "ES",
             "name"         -> "DCNJ PORTA",
             "phoneNumber"  -> "+ (376) 755125",
-            "eMailAddress"  -> "duana.pasdelacasa@andorra.ad",
+            "eMailAddress" -> "duana.pasdelacasa@andorra.ad",
             "id"           -> "AD000002",
             "countryId"    -> "AD",
             "roles" -> JsArray(
@@ -693,7 +693,7 @@ class CodeListSpec extends SpecBase with ScalaCheckPropertyChecks {
             "languageCode" -> "FR",
             "name"         -> "DCNJ PORTA",
             "phoneNumber"  -> "+ (376) 755125",
-            "eMailAddress"  -> "duana.pasdelacasa@andorra.ad",
+            "eMailAddress" -> "duana.pasdelacasa@andorra.ad",
             "id"           -> "AD000002",
             "countryId"    -> "AD",
             "roles" -> JsArray(

@@ -21,9 +21,10 @@ import play.api.Configuration
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 @Singleton
-class AppConfig @Inject()(config: Configuration, servicesConfig: ServicesConfig) {
+class AppConfig @Inject() (config: Configuration, servicesConfig: ServicesConfig) {
+
   lazy val customsReferenceDataUrl: String = {
-    val baseUrl = servicesConfig.baseUrl("customs-reference-data")
+    val baseUrl  = servicesConfig.baseUrl("customs-reference-data")
     val startUrl = config.get[String]("microservice.services.customs-reference-data.startUrl")
     s"$baseUrl/$startUrl"
   }

@@ -22,3 +22,6 @@ POST       /convert/reference-data-lists/:listName      controllers.conversion.R
 
 + nocsrf
 POST       /convert/customs-office-lists/:listName      controllers.conversion.CustomsOfficeListController.convertList(listName: String)
+
++ nocsrf
+POST       /compare/customs-office-lists         controllers.comparison.CustomsOfficeListController.compare()
