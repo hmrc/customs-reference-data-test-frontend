@@ -60,7 +60,7 @@ class CustomsOfficeListControllerSpec extends SpecBase with ScalaCheckPropertyCh
     def fakeRequest: FakeRequest[AnyContentAsJson] =
       FakeRequest(POST, routes.CustomsOfficeListController.post().url)
         .withJsonBody(testJson)
-        .withHeaders(headers *)
+        .withHeaders(headers*)
 
     "must return Accepted" - {
       "when the data has been validated and processed" in {

@@ -67,7 +67,7 @@ sealed trait XmlToJsonConverter {
     )
   }
 
-  def convert(xml: NodeSeq, listName: String): JsValue = {
+  def convert(xml: NodeSeq, listName: String): JsValue =
     JsArray {
       (xml \\ "RDEntity").foldLeft[Seq[JsValue]](Nil) {
         (acc, entry) =>
@@ -84,7 +84,6 @@ sealed trait XmlToJsonConverter {
           }
       }
     }
-  }
 }
 
 object XmlToJsonConverter {

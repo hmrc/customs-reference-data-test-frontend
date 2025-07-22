@@ -21,7 +21,7 @@ import utils.XmlToJsonConverter.CustomsOfficeListXmlToJsonConverter
 
 import javax.inject.Inject
 
-class CustomsOfficeListController @Inject()(
+class CustomsOfficeListController @Inject() (
   mcc: MessagesControllerComponents,
   converter: CustomsOfficeListXmlToJsonConverter
 ) extends ConversionController[CustomsOfficeListXmlToJsonConverter](mcc, converter)

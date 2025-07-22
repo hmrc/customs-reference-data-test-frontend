@@ -62,10 +62,10 @@ class CustomsOfficeListControllerSpec extends SpecBase with ScalaCheckPropertyCh
     def fakeRequest: FakeRequest[AnyContentAsXml] =
       FakeRequest(POST, routes.CustomsOfficeListController.convertLists().url)
         .withXmlBody(testXml)
-        .withHeaders(headers *)
+        .withHeaders(headers*)
 
     "must return Ok" in {
-      
+
       when(mockXmlToJsonConverter.convert(eqTo(testXml)))
         .thenReturn(testJson)
 
@@ -83,7 +83,7 @@ class CustomsOfficeListControllerSpec extends SpecBase with ScalaCheckPropertyCh
     def fakeRequest: FakeRequest[AnyContentAsXml] =
       FakeRequest(POST, routes.CustomsOfficeListController.convertList(listName).url)
         .withXmlBody(testXml)
-        .withHeaders(headers *)
+        .withHeaders(headers*)
 
     "must return Ok" in {
 

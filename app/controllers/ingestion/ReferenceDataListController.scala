@@ -24,7 +24,7 @@ import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class ReferenceDataListController @Inject()(
+class ReferenceDataListController @Inject() (
   mcc: MessagesControllerComponents,
   connector: CustomsReferenceDataConnector
 )(implicit ec: ExecutionContext)

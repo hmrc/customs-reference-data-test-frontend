@@ -35,7 +35,7 @@ abstract class IngestionController(
     Action(parse.json).async {
       request =>
         implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequest(request)
-        val json = request.body
+        val json                       = request.body
         ingest(json).map(_.status).map(Status)
     }
 }

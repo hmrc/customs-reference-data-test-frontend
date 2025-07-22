@@ -27,13 +27,7 @@ import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class CustomsReferenceDataConnectorSpec
-  extends AnyFreeSpec
-    with Matchers
-    with ScalaFutures
-    with IntegrationPatience
-    with OptionValues
-    with WiremockSuite {
+class CustomsReferenceDataConnectorSpec extends AnyFreeSpec with Matchers with ScalaFutures with IntegrationPatience with OptionValues with WiremockSuite {
 
   override protected def portConfigKey: String = "microservice.services.customs-reference-data.port"
 
@@ -81,7 +75,7 @@ class CustomsReferenceDataConnectorSpec
 
     "referenceDataListGet" - {
       val listName = "list-name"
-      
+
       "must return ok" - {
         "without query parameters" in {
           server.stubFor(
@@ -96,7 +90,7 @@ class CustomsReferenceDataConnectorSpec
 
           result.futureValue.status mustEqual 200
         }
-        
+
         "with a query parameter" in {
           server.stubFor(
             get(urlEqualTo(s"/customs-reference-data/lists/$listName?country=GB"))
@@ -110,7 +104,7 @@ class CustomsReferenceDataConnectorSpec
 
           result.futureValue.status mustEqual 200
         }
-        
+
         "with multiple query parameters" in {
           server.stubFor(
             get(urlEqualTo(s"/customs-reference-data/lists/$listName?country=GB&role=TRA"))
@@ -124,7 +118,7 @@ class CustomsReferenceDataConnectorSpec
 
           result.futureValue.status mustEqual 200
         }
-        
+
         "with multiple queries on the same parameter" in {
           server.stubFor(
             get(urlEqualTo(s"/customs-reference-data/lists/$listName?country=GB&country=XI"))

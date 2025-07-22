@@ -62,7 +62,7 @@ class ReferenceDataListControllerSpec extends SpecBase with ScalaCheckPropertyCh
     def fakeRequest: FakeRequest[AnyContentAsXml] =
       FakeRequest(POST, routes.ReferenceDataListController.convertLists().url)
         .withXmlBody(testXml)
-        .withHeaders(headers *)
+        .withHeaders(headers*)
 
     "must return Ok" in {
 
@@ -75,15 +75,15 @@ class ReferenceDataListControllerSpec extends SpecBase with ScalaCheckPropertyCh
       contentAsJson(result) mustEqual testJson
     }
   }
-  
+
   "convertList" - {
-    
+
     val listName = "foo"
 
     def fakeRequest: FakeRequest[AnyContentAsXml] =
       FakeRequest(POST, routes.ReferenceDataListController.convertList(listName).url)
         .withXmlBody(testXml)
-        .withHeaders(headers *)
+        .withHeaders(headers*)
 
     "must return Ok" in {
 

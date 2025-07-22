@@ -21,7 +21,7 @@ import utils.XmlToJsonConverter.ReferenceDataListXmlToJsonConverter
 
 import javax.inject.Inject
 
-class ReferenceDataListController @Inject()(
+class ReferenceDataListController @Inject() (
   mcc: MessagesControllerComponents,
   converter: ReferenceDataListXmlToJsonConverter
 ) extends ConversionController[ReferenceDataListXmlToJsonConverter](mcc, converter)
