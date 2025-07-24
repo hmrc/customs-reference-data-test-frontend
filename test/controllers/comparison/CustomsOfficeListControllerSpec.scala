@@ -17,12 +17,11 @@
 package controllers.comparison
 
 import base.SpecBase
-import models.CustomsOffice
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.Files.{SingletonTemporaryFileCreator, TemporaryFile}
-import play.api.libs.json.{JsArray, JsValue, Json}
+import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.MultipartFormData.FilePart
 import play.api.mvc.{AnyContentAsMultipartFormData, MultipartFormData}
 import play.api.test.FakeRequest
@@ -120,8 +119,15 @@ class CustomsOfficeListControllerSpec extends SpecBase with ScalaCheckPropertyCh
 
         val result = route(app, fakeRequest).value
 
+        val expectedJson = Json.parse("""
+            |{
+            |  "count": 0,
+            |  "diffs": []
+            |}
+            |""".stripMargin)
+
         status(result) mustEqual OK
-        contentAsJson(result) mustEqual Json.obj("diffs" -> JsArray())
+        contentAsJson(result) mustEqual expectedJson
       }
 
       "when there are diffs" in {
@@ -190,18 +196,27 @@ class CustomsOfficeListControllerSpec extends SpecBase with ScalaCheckPropertyCh
 
         val result = route(app, fakeRequest).value
 
-        val diff = CustomsOffice(
-          "EN",
-          "Heysham",
-          Some("03000599436"),
-          Some("babatunde.adewole@hmrc.gsi.gov.uk"),
-          "GB000008",
-          "GB",
-          Set("DEP")
-        )
+        val expectedJson = Json.parse("""
+            |{
+            |  "count": 1,
+            |  "diffs": [
+            |    {
+            |      "phoneNumber": "03000599436",
+            |      "roles": [
+            |        "DES"
+            |      ],
+            |      "name": "Heysham",
+            |      "id": "GB000008",
+            |      "languageCode": "EN",
+            |      "emailAddress": "babatunde.adewole@hmrc.gsi.gov.uk",
+            |      "countryId": "GB"
+            |    }
+            |  ]
+            |}
+            |""".stripMargin)
 
         status(result) mustEqual OK
-        contentAsJson(result) mustEqual Json.obj("diffs" -> JsArray(Seq(Json.toJson(diff))))
+        contentAsJson(result) mustEqual expectedJson
       }
     }
 
