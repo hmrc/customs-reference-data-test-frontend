@@ -218,6 +218,199 @@ class CustomsOfficeListControllerSpec extends SpecBase with ScalaCheckPropertyCh
         status(result) mustEqual OK
         contentAsJson(result) mustEqual expectedJson
       }
+
+      "when there are multiple offices with the same ID" in {
+
+        val v1Content = Json.parse("""
+            |{
+            |  "data": [
+            |    {
+            |      "phoneNumber": "+ 359",
+            |      "roles": [
+            |        {
+            |          "role": "DEP"
+            |        },
+            |        {
+            |          "role": "DES"
+            |        },
+            |        {
+            |          "role": "EIN"
+            |        },
+            |        {
+            |          "role": "ENL"
+            |        },
+            |        {
+            |          "role": "ENQ"
+            |        },
+            |        {
+            |          "role": "EXL"
+            |        },
+            |        {
+            |          "role": "EXP"
+            |        },
+            |        {
+            |          "role": "REC"
+            |        }
+            |      ],
+            |      "name": "МБ Монтана",
+            |      "state": "valid",
+            |      "id": "BG004210",
+            |      "languageCode": "BG",
+            |      "activeFrom": "2019-01-01",
+            |      "countryId": "BG"
+            |    },
+            |    {
+            |      "phoneNumber": "+ 359",
+            |      "roles": [
+            |        {
+            |          "role": "DEP"
+            |        },
+            |        {
+            |          "role": "DES"
+            |        },
+            |        {
+            |          "role": "EIN"
+            |        },
+            |        {
+            |          "role": "ENL"
+            |        },
+            |        {
+            |          "role": "ENQ"
+            |        },
+            |        {
+            |          "role": "EXL"
+            |        },
+            |        {
+            |          "role": "EXP"
+            |        },
+            |        {
+            |          "role": "REC"
+            |        }
+            |      ],
+            |      "name": "MB Montana",
+            |      "state": "valid",
+            |      "id": "BG004210",
+            |      "languageCode": "EN",
+            |      "activeFrom": "2019-01-01",
+            |      "countryId": "BG"
+            |    }
+            |  ]
+            |}
+            |""".stripMargin)
+
+        val v2Content = Json.parse("""
+            |[
+            |  {
+            |    "referenceNumber": "BG004210",
+            |    "countryCode": "BG",
+            |    "emailAddress": null,
+            |    "phoneNumber": "+ 359",
+            |    "customsOfficeLsd": {
+            |      "customsOfficeUsualName": "MB Montana",
+            |      "languageCode": "EN"
+            |    },
+            |    "customsOfficeTimetable": {
+            |      "customsOfficeTimetableLine": [
+            |        {
+            |          "customsOfficeRoleTrafficCompetence": [
+            |            {
+            |              "roleName": "DEP",
+            |              "trafficType": "R"
+            |            },
+            |            {
+            |              "roleName": "DEP",
+            |              "trafficType": "V"
+            |            },
+            |            {
+            |              "roleName": "DES",
+            |              "trafficType": "R"
+            |            },
+            |            {
+            |              "roleName": "DES",
+            |              "trafficType": "V"
+            |            },
+            |            {
+            |              "roleName": "EIN",
+            |              "trafficType": "R"
+            |            },
+            |            {
+            |              "roleName": "EIN",
+            |              "trafficType": "V"
+            |            },
+            |            {
+            |              "roleName": "ENL",
+            |              "trafficType": "R"
+            |            },
+            |            {
+            |              "roleName": "ENL",
+            |              "trafficType": "V"
+            |            },
+            |            {
+            |              "roleName": "ENQ",
+            |              "trafficType": "R"
+            |            },
+            |            {
+            |              "roleName": "ENQ",
+            |              "trafficType": "V"
+            |            },
+            |            {
+            |              "roleName": "EXL",
+            |              "trafficType": "R"
+            |            },
+            |            {
+            |              "roleName": "EXL",
+            |              "trafficType": "V"
+            |            },
+            |            {
+            |              "roleName": "EXP",
+            |              "trafficType": "R"
+            |            },
+            |            {
+            |              "roleName": "EXP",
+            |              "trafficType": "V"
+            |            },
+            |            {
+            |              "roleName": "REC",
+            |              "trafficType": "R"
+            |            },
+            |            {
+            |              "roleName": "REC",
+            |              "trafficType": "V"
+            |            }
+            |          ]
+            |        }
+            |      ]
+            |    }
+            |  }
+            |]
+            |""".stripMargin)
+
+        def fakeRequest: FakeRequest[AnyContentAsMultipartFormData] = {
+          val form: MultipartFormData[TemporaryFile] = MultipartFormData(
+            dataParts = Map(),
+            files = Seq(
+              createFile("v1", v1Content),
+              createFile("v2", v2Content)
+            ),
+            badParts = Nil
+          )
+
+          FakeRequest(POST, routes.CustomsOfficeListController.compare().url)
+            .withMultipartFormDataBody(form)
+        }
+
+        val result = route(app, fakeRequest).value
+
+        val expectedJson = Json.parse("""
+            |{
+            |  "count": 0,
+            |  "diffs": []
+            |}
+            |""".stripMargin)
+
+        status(result) mustEqual OK
+        contentAsJson(result) mustEqual expectedJson
+      }
     }
 
     "must return BadRequest" - {
