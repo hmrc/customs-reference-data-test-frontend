@@ -59,8 +59,16 @@ class CustomsOfficeListController @Inject() (
           case (Some(v1File), Some(v2File)) =>
             (parseFile(v1File), parseFile(v2File)) match {
               case (Success(v1Data), Success(v2Data)) =>
-                val diffs = v1Data.diff(v2Data).map(Json.toJson)
-                Ok(Json.obj("diffs" -> JsArray(diffs)))
+                val diffs = v2Data.foldLeft(Seq.empty[CustomsOffice]) {
+                  case (acc, customsOffice) =>
+                    if (v1Data.filter(_.id == customsOffice.id).contains(customsOffice)) {
+                      acc
+                    } else {
+                      acc :+ customsOffice
+                    }
+                }
+
+                Ok(Json.obj("count" -> diffs.length, "diffs" -> JsArray(diffs.map(Json.toJson(_)))))
               case _ =>
                 BadRequest("One or more of the files contain invalid data")
             }
