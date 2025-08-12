@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package connectors
+package base
 
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
@@ -22,7 +22,7 @@ import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, Suite}
 import play.api.Application
 import play.api.inject.guice.{GuiceApplicationBuilder, GuiceableModule}
 
-trait WiremockSuite extends BeforeAndAfterAll with BeforeAndAfterEach {
+trait WireMockServerHandler extends BeforeAndAfterAll with BeforeAndAfterEach {
   this: Suite =>
 
   protected val server: WireMockServer = new WireMockServer(wireMockConfig().dynamicPort())

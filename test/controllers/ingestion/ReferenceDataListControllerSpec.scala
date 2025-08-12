@@ -21,6 +21,7 @@ import connectors.CustomsReferenceDataConnector
 import org.mockito.ArgumentMatchers.{any, eq as eqTo}
 import org.mockito.Mockito.{reset, when}
 import org.scalatestplus.mockito.MockitoSugar.mock
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.Application
 import play.api.inject.bind
@@ -33,7 +34,7 @@ import uk.gov.hmrc.http.HttpResponse
 
 import scala.concurrent.Future
 
-class ReferenceDataListControllerSpec extends SpecBase with ScalaCheckPropertyChecks {
+class ReferenceDataListControllerSpec extends SpecBase with GuiceOneAppPerSuite with ScalaCheckPropertyChecks {
 
   private val mockConnector: CustomsReferenceDataConnector = mock[CustomsReferenceDataConnector]
 

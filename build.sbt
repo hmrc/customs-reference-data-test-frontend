@@ -1,4 +1,10 @@
+import uk.gov.hmrc.DefaultBuildSettings
+
 val appName = "customs-reference-data-test-frontend"
+
+ThisBuild / majorVersion := 0
+ThisBuild / scalaVersion := "3.5.0"
+ThisBuild / scalafmtOnCompile := true
 
 lazy val microservice = Project(appName, file("."))
   .enablePlugins(
@@ -7,19 +13,16 @@ lazy val microservice = Project(appName, file("."))
   )
   .disablePlugins(JUnitXmlReportPlugin)
   .settings(
-    majorVersion := 0,
-    scalaVersion := "3.5.0",
-    scalafmtOnCompile := true,
     libraryDependencies ++= AppDependencies.compile ++ AppDependencies.test,
     PlayKeys.playDefaultPort := 9493,
     scalacOptions += "-Wconf:src=routes/.*:s"
   )
-  .settings(inConfig(Test)(testSettings) *)
   .settings(CodeCoverageSettings.settings*)
 
-lazy val testSettings: Seq[Def.Setting[?]] = Seq(
-  unmanagedResourceDirectories += baseDirectory.value / "test" / "resources",
-  javaOptions ++= Seq(
-    "-Dconfig.resource=test.application.conf"
+lazy val it = project
+  .enablePlugins(PlayScala)
+  .dependsOn(microservice % "test->test") // the "test->test" allows reusing test code and test dependencies
+  .settings(
+    libraryDependencies ++= AppDependencies.test,
+    DefaultBuildSettings.itSettings()
   )
-)

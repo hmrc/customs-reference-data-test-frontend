@@ -20,6 +20,7 @@ import base.SpecBase
 import org.mockito.ArgumentMatchers.eq as eqTo
 import org.mockito.Mockito.{reset, when}
 import org.scalatestplus.mockito.MockitoSugar.mock
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.Application
 import play.api.inject.bind
@@ -30,7 +31,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.*
 import utils.XmlToJsonConverter.ReferenceDataListXmlToJsonConverter
 
-class ReferenceDataListControllerSpec extends SpecBase with ScalaCheckPropertyChecks {
+class ReferenceDataListControllerSpec extends SpecBase with GuiceOneAppPerSuite with ScalaCheckPropertyChecks {
 
   private val mockXmlToJsonConverter: ReferenceDataListXmlToJsonConverter = mock[ReferenceDataListXmlToJsonConverter]
 
