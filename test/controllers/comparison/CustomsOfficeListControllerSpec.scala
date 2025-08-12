@@ -17,6 +17,7 @@
 package controllers.comparison
 
 import base.SpecBase
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -29,7 +30,7 @@ import play.api.test.Helpers.*
 
 import java.io.PrintWriter
 
-class CustomsOfficeListControllerSpec extends SpecBase with ScalaCheckPropertyChecks {
+class CustomsOfficeListControllerSpec extends SpecBase with GuiceOneAppPerSuite with ScalaCheckPropertyChecks {
 
   override def fakeApplication(): Application =
     new GuiceApplicationBuilder()

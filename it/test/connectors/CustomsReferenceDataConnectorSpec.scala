@@ -16,18 +16,16 @@
 
 package connectors
 
+import base.{ItSpecBase, WireMockServerHandler}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, urlEqualTo}
-import org.scalatest.OptionValues
-import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatest.freespec.AnyFreeSpec
-import org.scalatest.matchers.must.Matchers
 import play.api.libs.json.Json
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class CustomsReferenceDataConnectorSpec extends AnyFreeSpec with Matchers with ScalaFutures with IntegrationPatience with OptionValues with WiremockSuite {
+class CustomsReferenceDataConnectorSpec extends ItSpecBase with WireMockServerHandler {
 
   override protected def portConfigKey: String = "microservice.services.customs-reference-data.port"
 
