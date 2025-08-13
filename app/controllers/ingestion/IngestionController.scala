@@ -18,7 +18,8 @@ package controllers.ingestion
 
 import org.apache.pekko.stream.scaladsl.Source
 import org.apache.pekko.util.ByteString
-import play.api.mvc.{Action, MessagesControllerComponents}
+import play.api.libs.streams.Accumulator
+import play.api.mvc.{Action, BodyParser, MessagesControllerComponents}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import uk.gov.hmrc.play.http.HeaderCarrierConverter
@@ -32,11 +33,15 @@ abstract class IngestionController(
 
   def ingest(source: Source[ByteString, ?])(implicit hc: HeaderCarrier): Future[HttpResponse]
 
-  def post(): Action[ByteString] =
-    Action(parse.byteString).async {
+  private def streamParser: BodyParser[Source[ByteString, ?]] = BodyParser {
+    _ =>
+      Accumulator.source[ByteString].map(Right.apply)
+  }
+
+  def post(): Action[Source[ByteString, ?]] =
+    Action(streamParser).async {
       request =>
-        implicit val hc: HeaderCarrier  = HeaderCarrierConverter.fromRequest(request)
-        val body: Source[ByteString, ?] = Source.single(request.body)
-        ingest(body).map(_.status).map(Status)
+        implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequest(request)
+        ingest(request.body).map(_.status).map(Status)
     }
 }
