@@ -17,7 +17,8 @@
 package controllers.ingestion
 
 import connectors.CustomsReferenceDataConnector
-import play.api.libs.json.JsValue
+import org.apache.pekko.stream.scaladsl.Source
+import org.apache.pekko.util.ByteString
 import play.api.mvc.MessagesControllerComponents
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 
@@ -30,6 +31,6 @@ class CustomsOfficeListController @Inject() (
 )(implicit ec: ExecutionContext)
     extends IngestionController(mcc) {
 
-  override def ingest(body: JsValue)(implicit hc: HeaderCarrier): Future[HttpResponse] =
+  override def ingest(body: Source[ByteString, ?])(implicit hc: HeaderCarrier): Future[HttpResponse] =
     connector.postCustomsOfficeLists(body)
 }

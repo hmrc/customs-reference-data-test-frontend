@@ -16,7 +16,8 @@
 
 package controllers.ingestion
 
-import play.api.libs.json.JsValue
+import org.apache.pekko.stream.scaladsl.Source
+import org.apache.pekko.util.ByteString
 import play.api.mvc.{Action, MessagesControllerComponents}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
@@ -29,13 +30,13 @@ abstract class IngestionController(
 )(implicit ec: ExecutionContext)
     extends FrontendController(mcc) {
 
-  def ingest(body: JsValue)(implicit hc: HeaderCarrier): Future[HttpResponse]
+  def ingest(source: Source[ByteString, ?])(implicit hc: HeaderCarrier): Future[HttpResponse]
 
-  def post(): Action[JsValue] =
-    Action(parse.json).async {
+  def post(): Action[ByteString] =
+    Action(parse.byteString).async {
       request =>
-        implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequest(request)
-        val json                       = request.body
-        ingest(json).map(_.status).map(Status)
+        implicit val hc: HeaderCarrier    = HeaderCarrierConverter.fromRequest(request)
+        val source: Source[ByteString, ?] = Source.single(request.body)
+        ingest(source).map(_.status).map(Status)
     }
 }
