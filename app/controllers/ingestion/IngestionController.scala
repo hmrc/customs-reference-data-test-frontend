@@ -35,8 +35,8 @@ abstract class IngestionController(
   def post(): Action[ByteString] =
     Action(parse.byteString).async {
       request =>
-        implicit val hc: HeaderCarrier    = HeaderCarrierConverter.fromRequest(request)
-        val source: Source[ByteString, ?] = Source.single(request.body)
-        ingest(source).map(_.status).map(Status)
+        implicit val hc: HeaderCarrier  = HeaderCarrierConverter.fromRequest(request)
+        val body: Source[ByteString, ?] = Source.single(request.body)
+        ingest(body).map(_.status).map(Status)
     }
 }
