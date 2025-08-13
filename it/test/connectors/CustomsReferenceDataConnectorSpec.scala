@@ -18,6 +18,8 @@ package connectors
 
 import base.{ItSpecBase, WireMockServerHandler}
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, get, post, urlEqualTo}
+import org.apache.pekko.stream.scaladsl.Source
+import org.apache.pekko.util.ByteString
 import org.scalatest.freespec.AnyFreeSpec
 import play.api.libs.json.Json
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
@@ -45,7 +47,9 @@ class CustomsReferenceDataConnectorSpec extends ItSpecBase with WireMockServerHa
             )
         )
 
-        val body = Json.obj("foo" -> "bar")
+        val json = Json.obj("foo" -> "bar")
+
+        val body: Source[ByteString, ?] = Source.single(ByteString(Json.stringify(json), "UTF-8"))
 
         val result: Future[HttpResponse] = connector.postReferenceDataList(body)
 
@@ -63,7 +67,9 @@ class CustomsReferenceDataConnectorSpec extends ItSpecBase with WireMockServerHa
             )
         )
 
-        val body = Json.obj("foo" -> "bar")
+        val json = Json.obj("foo" -> "bar")
+
+        val body: Source[ByteString, ?] = Source.single(ByteString(Json.stringify(json), "UTF-8"))
 
         val result: Future[HttpResponse] = connector.postCustomsOfficeLists(body)
 

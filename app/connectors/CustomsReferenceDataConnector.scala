@@ -17,18 +17,19 @@
 package connectors
 
 import config.AppConfig
-import play.api.libs.json.JsValue
-import uk.gov.hmrc.http.HttpReads.Implicits._
-import uk.gov.hmrc.http.client.HttpClientV2
+import org.apache.pekko.stream.scaladsl.Source
+import org.apache.pekko.util.ByteString
+import play.api.libs.ws.DefaultBodyWritables
+import play.api.libs.ws.DefaultBodyWritables.*
+import uk.gov.hmrc.http.client.{HttpClientV2, given}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, StringContextOps}
-import play.api.libs.ws.JsonBodyWritables._
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
 class CustomsReferenceDataConnector @Inject() (http: HttpClientV2, config: AppConfig) {
 
-  def postReferenceDataList(body: JsValue)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
+  def postReferenceDataList(body: Source[ByteString, ?])(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
     val url = url"${config.customsReferenceDataUrl}/reference-data-lists"
     http
       .post(url)
@@ -40,7 +41,7 @@ class CustomsReferenceDataConnector @Inject() (http: HttpClientV2, config: AppCo
       .execute[HttpResponse]
   }
 
-  def postCustomsOfficeLists(body: JsValue)(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
+  def postCustomsOfficeLists(body: Source[ByteString, ?])(implicit ec: ExecutionContext, hc: HeaderCarrier): Future[HttpResponse] = {
     val url = url"${config.customsReferenceDataUrl}/customs-office-lists"
     http
       .post(url)

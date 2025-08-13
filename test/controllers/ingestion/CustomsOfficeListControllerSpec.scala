@@ -18,7 +18,7 @@ package controllers.ingestion
 
 import base.SpecBase
 import connectors.CustomsReferenceDataConnector
-import org.mockito.ArgumentMatchers.{any, eq as eqTo}
+import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, when}
 import org.scalatestplus.mockito.MockitoSugar.mock
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
@@ -66,7 +66,7 @@ class CustomsOfficeListControllerSpec extends SpecBase with GuiceOneAppPerSuite 
     "must return Accepted" - {
       "when the data has been validated and processed" in {
 
-        when(mockConnector.postCustomsOfficeLists(eqTo(testJson))(any(), any()))
+        when(mockConnector.postCustomsOfficeLists(any())(any(), any()))
           .thenReturn(Future.successful(HttpResponse(ACCEPTED, "")))
 
         val result = route(app, fakeRequest).value
@@ -78,7 +78,7 @@ class CustomsOfficeListControllerSpec extends SpecBase with GuiceOneAppPerSuite 
     "must return Bad Request" - {
       "when a validation error occurs" in {
 
-        when(mockConnector.postCustomsOfficeLists(eqTo(testJson))(any(), any()))
+        when(mockConnector.postCustomsOfficeLists(any())(any(), any()))
           .thenReturn(Future.successful(HttpResponse(BAD_REQUEST, "")))
 
         val result = route(app, fakeRequest).value
@@ -90,7 +90,7 @@ class CustomsOfficeListControllerSpec extends SpecBase with GuiceOneAppPerSuite 
     "must return Internal Server Error" - {
       "when the data was not processed successfully" in {
 
-        when(mockConnector.postCustomsOfficeLists(eqTo(testJson))(any(), any()))
+        when(mockConnector.postCustomsOfficeLists(any())(any(), any()))
           .thenReturn(Future.successful(HttpResponse(INTERNAL_SERVER_ERROR, "")))
 
         val result = route(app, fakeRequest).value
